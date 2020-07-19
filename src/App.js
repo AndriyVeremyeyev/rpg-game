@@ -1,10 +1,13 @@
 import React from 'react';
-import Monsters from './Monster';
+import StartGame from './StartGame';
 
 function App() {
+
+
+
   return (
     <div>
-      <Monsters/>
+      <StartGame/>
     </div>
   );
 }
