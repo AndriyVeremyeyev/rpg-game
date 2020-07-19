@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Grid, Typography, Button} from '@material-ui/core/';
-import Monsters from './Monsters';
+import ChooseMonsters from './ChooseMonsters';
 
 class StartGame extends Component {
 
@@ -20,7 +20,7 @@ class StartGame extends Component {
   render(){
     if (this.state.startGame){
       return (
-        <Monsters/>
+        <ChooseMonsters/>
       )
     } else {
       return(
