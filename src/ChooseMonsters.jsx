@@ -2,59 +2,43 @@ import React, {Component} from 'react';
 import {Grid, Paper, Typography} from '@material-ui/core/';
 import database from './database';
 import './ChooseMonsters.css';
+import {connect} from 'react-redux';
+import {setRandomMonsters, setCharacter, setEnemy} from './actions';
 
 class ChooseMonsters extends Component {
- 
-  constructor(){
-    super();
-    this.state = {
-      randomMonsters: [],
-      character: null,
-      enemy: null
-    }
-  }
 
   componentDidMount = () => {
     const shuffled = database.sort(() => 0.5 - Math.random()).slice(0, 4);
-    this.setState({
-      randomMonsters: shuffled
-    })  
+    this.props.setRandomMonsters(shuffled); 
   }
 
   comments = () => {
-    if (!this.state.character){
+    if (!this.props.character){
       return "Choose your character"
     }
-    if (this.state.character && !this.state.enemy){
+    if (this.props.character && !this.props.enemy){
       return "Choose your enemy"
     }
   } 
   
   gridOnClick = (id) => {
-    const monster = this.state.randomMonsters.filter(m => m.id === id)
-    const otherMonsters = this.state.randomMonsters.filter(m => m.id !== id)
-
-    if (!this.state.character){
-      this.setState({
-        character: monster,
-        randomMonsters: otherMonsters
-      })
+    const monster = this.props.randomMonsters.filter(m => m.id === id)
+    const otherMonsters = this.props.randomMonsters.filter(m => m.id !== id)
+    const {setCharacter, setEnemy, setRandomMonsters} = this.props;
+    if (!this.props.character){
+      setCharacter(monster[0]);
+      setRandomMonsters(otherMonsters);
     } else {
-      this.setState({
-        enemy: monster,
-        randomMonsters: otherMonsters
-      })
+      setEnemy(monster[0]);
+      setRandomMonsters(otherMonsters);
     }
   }
 
   render(){
-
-    console.log(this.state)
-
     return(
       <React.Fragment>
         <Grid container spacing={2} direction="row" alignItems="center" justify="center" style={{height: 500}}>
-          {this.state.randomMonsters.map(m => {
+          {this.props.randomMonsters.map(m => {
             return (
               <Grid 
                 className='item' 
@@ -76,4 +60,21 @@ class ChooseMonsters extends Component {
   }
 }
 
-export default ChooseMonsters;
+const mapStateToProps = state => {
+
+  const {randomMonsters, character, enemy} = state;
+
+  return {
+    randomMonsters,
+    character,
+    enemy
+  }
+}
+
+const mapDispatchToProps = dispatch => ({
+  setRandomMonsters: (monsters) => dispatch(setRandomMonsters(monsters)),
+  setCharacter: (character) => dispatch(setCharacter(character)),
+  setEnemy: (enemy) => dispatch(setEnemy(enemy)) 
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(ChooseMonsters);

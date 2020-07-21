@@ -1,13 +1,10 @@
 import React from 'react';
-import StartGame from './StartGame';
+import GameController from './GameController';
 
 function App() {
-
-
-
   return (
     <div>
-      <StartGame/>
+      <GameController/>
     </div>
   );
 }
