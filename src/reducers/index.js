@@ -5,7 +5,9 @@ const initialState = {
   enemy: null,
   menuButtons: true,
   subTitle: null,
-  legend: null
+  legend: null,
+  characterCard: null,
+  enemyCard: null
 }
 
 const reducer = (state = initialState, action) => {
@@ -42,7 +44,6 @@ const reducer = (state = initialState, action) => {
         enemy: modifiedEnemy
       }
     case 'APPLY_RANDOM_ATTACK':
-
       const modifiedHealthWithRandom = state.enemy.health > 0 ? state.enemy.health-action.payload : 0;
       return {
         ...state,
@@ -63,7 +64,23 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         legend: action.payload
-      }                 
+      }
+    case 'APPLY_ENEMY_ATTACK':
+      const modifiedCharacterHealth = state.character.health > 0 ? state.character.health-action.payload : 0;
+      return {
+        ...state,
+        enemy: {...state.character, health: modifiedCharacterHealth}
+      }
+    case 'SET_CHARACTER_CARD_STYLE':
+      return {
+        ...state,
+        characterCard: action.payload
+      }
+    case 'SET_ENEMY_CARD_STYLE':
+      return {
+        ...state,
+        enemyCard: action.payload
+      }           
     default:
       return state
   }

@@ -6,41 +6,38 @@ import {
   setMenuButtonsStatus, 
   applyRandomAttack,
   setLegend,
-  setSubtitle
+  setSubtitle,
+  applyEnemyAttack,
+  setCharacterCardStyle,
+  setEnemyCardStyle
 } from './actions';
+import './Battle.css';
 
 class Battle extends Component {
 
 
   allowApplyAttack = () => {
     const {setLegend, setMenuButtonsStatus} = this.props;
-    setLegend('Buttons became active now. Please, choose your action')
+    setLegend('Buttons became active now')
     setMenuButtonsStatus();
+    const secondText = () => {
+      setLegend('Make your choice from menu')
+    }
+    setTimeout(secondText, 1500);
   }
 
 
   componentDidMount = () => {
 
+    const firstText = () => {
+      setLegend('This is Battle Mode')
+    }
+
     const {setLegend, setSubtitle} = this.props;
     setLegend(null);
     setSubtitle('Battle Mode');
-    setTimeout(setLegend('This is Battle Mode'), 100);
-    setTimeout(this.allowApplyAttack, 2000);
-  }
-
-
-  legend = () => {
-
-    const {textOneVisible, textTwoVisible} = this.props;
-    const textOne = 'Welcome to battle';
-    const textTwo = 'Please, make your action';
-
-    return (
-      <React.Fragment>
-        {textOneVisible? textOne : null}
-        {textTwoVisible? textTwo : null}
-      </React.Fragment>
-    )
+    setTimeout(firstText, 1000);
+    setTimeout(this.allowApplyAttack, 2500);
   }
 
   textWrapping = (text, fontSize) => {
@@ -60,32 +57,92 @@ class Battle extends Component {
     )
   }
 
+  enemyAttack = () => {
+    const {
+      applyEnemyAttack, 
+      setMenuButtonsStatus, 
+      setLegend,
+      setCharacterCardStyle
+    } = this.props;
+    const attackValues = [0, 5, 10, 15, 20];
+    const randomAttackValue = attackValues[Math.floor(Math.random() * attackValues.length)];
+    applyEnemyAttack(randomAttackValue);
+    setCharacterCardStyle('monsterCard');
+    setLegend('Your enemy made attack');
+    const secondText = () => {
+      setLegend(`Your health damage is ${randomAttackValue}`);
+      setCharacterCardStyle(null);
+    }
+    const thirdText = () => {
+      setLegend('Now it\'s your turn');
+      setMenuButtonsStatus();
+    }
+    setTimeout(secondText, 1500);
+    setTimeout(thirdText, 3000);
+  }
+
   standardAttack = () => {
-    this.props.applyStandardAttack();
-    this.props.setMenuButtonsStatus();
+    const {
+      applyStandardAttack, 
+      setMenuButtonsStatus, 
+      setEnemyCardStyle, 
+      setLegend
+    } = this.props;
+    applyStandardAttack();
+    setEnemyCardStyle('monsterCard');
+    setMenuButtonsStatus();
+    setLegend('You made standard attack');
+    const secondText = () => {
+      setLegend('Now it\'s turn of your enemy');
+      this.enemyAttack();
+      setEnemyCardStyle(null);
+    }
+    setTimeout(secondText, 1500);
   }
 
   randomAttack = () => {
+    const {
+      applyRandomAttack, 
+      setMenuButtonsStatus, 
+      setLegend,
+      setEnemyCardStyle
+    } = this.props;
     const attackValues = [0, 5, 10, 15, 20];
     const randomAttackValue = attackValues[Math.floor(Math.random() * attackValues.length)];
-    this.props.applyRandomAttack(randomAttackValue);
-    this.props.setMenuButtonsStatus();
+    const secondText = () => {
+      setLegend(`Enemy health damage is ${randomAttackValue}`);
+      setEnemyCardStyle(null);
+    }
+    const thirdText = () => {
+      setLegend('Now it\'s turn of your enemy');
+      this.enemyAttack();
+    }
+    applyRandomAttack(randomAttackValue);
+    setEnemyCardStyle('monsterCard');
+    setMenuButtonsStatus();
+    setLegend('You made random attack');
+    setTimeout(secondText, 1500);
+    setTimeout(thirdText, 3000);
   }
 
   render(){
 
-    const {character, enemy, menuButtons} = this.props;
+    const {character, enemy, menuButtons, characterCard, enemyCard} = this.props;
     console.log(this.props);
     return (
       <React.Fragment>
         <Grid container justify='space-around'>
           <Grid item>
             {this.textWrapping('Your character', 'h5')}
-            {this.monsterCard(character)}
+            <div className={characterCard}>
+              {this.monsterCard(character)}
+            </div>
           </Grid>
           <Grid item>
             {this.textWrapping('Your enemy', 'h5')}
-            {this.monsterCard(enemy)}
+            <div className={enemyCard}>
+              {this.monsterCard(enemy)}
+            </div>
           </Grid>
         </Grid>
         <Grid style={{marginTop: 50}} container spacing={2} justify='center'>
@@ -126,14 +183,16 @@ class Battle extends Component {
 
 const mapStateToProps = state => {
 
-  const {character, enemy, textOneVisible, textTwoVisible, menuButtons} = state;
+  const {character, enemy, textOneVisible, textTwoVisible, menuButtons, characterCard, enemyCard} = state;
 
   return {
     character,
     enemy,
     textOneVisible,
     textTwoVisible,
-    menuButtons
+    menuButtons,
+    characterCard,
+    enemyCard
   }
 }
 
@@ -142,7 +201,10 @@ const mapDispatchToProps = dispatch => ({
   applyRandomAttack: (randomValue) => dispatch(applyRandomAttack(randomValue)),
   setMenuButtonsStatus: () => dispatch(setMenuButtonsStatus()),
   setSubtitle: (text) => dispatch(setSubtitle(text)),
-  setLegend: (text) => dispatch(setLegend(text))
+  setLegend: (text) => dispatch(setLegend(text)),
+  applyEnemyAttack: (randomValue) => dispatch(applyEnemyAttack(randomValue)),
+  setCharacterCardStyle: (style) => dispatch(setCharacterCardStyle(style)),
+  setEnemyCardStyle: (style) => dispatch(setEnemyCardStyle(style)),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Battle);;

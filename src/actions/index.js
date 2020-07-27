@@ -57,3 +57,23 @@ export const setLegend = (text) => {
     payload: text
   }
 }
+
+export const applyEnemyAttack = () => {
+  return {
+    type: 'APPLY_ENEMY_ATTACK'
+  }
+}
+
+export const setCharacterCardStyle = (style) => {
+  return {
+    type: 'SET_CHARACTER_CARD_STYLE',
+    payload: style
+  }
+}
+
+export const setEnemyCardStyle = (style) => {
+  return {
+    type: 'SET_ENEMY_CARD_STYLE',
+    payload: style
+  }  
+}
