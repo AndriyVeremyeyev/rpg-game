@@ -25,16 +25,10 @@ export const setStartGame = () => {
   }
 }
 
-export const applyStandardAttack = () => {
+export const applyAttack = (value) => {
   return {
-    type: 'APPLY_STANDARD_ATTACK'
-  }
-}
-
-export const applyRandomAttack = (randomValue) => {
-  return {
-    type: 'APPLY_RANDOM_ATTACK',
-    payload: randomValue
+    type: 'APPLY_ATTACK',
+    payload: value
   }
 }
 
@@ -58,9 +52,10 @@ export const setLegend = (text) => {
   }
 }
 
-export const applyEnemyAttack = () => {
+export const applyEnemyAttack = (randomValue) => {
   return {
-    type: 'APPLY_ENEMY_ATTACK'
+    type: 'APPLY_ENEMY_ATTACK',
+    payload: randomValue
   }
 }
 

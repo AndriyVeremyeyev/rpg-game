@@ -2,9 +2,8 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import { Grid, Button, Typography, Paper } from '@material-ui/core';
 import {
-  applyStandardAttack , 
   setMenuButtonsStatus, 
-  applyRandomAttack,
+  applyAttack,
   setLegend,
   setSubtitle,
   applyEnemyAttack,
@@ -15,7 +14,6 @@ import './Battle.css';
 
 class Battle extends Component {
 
-
   allowApplyAttack = () => {
     const {setLegend, setMenuButtonsStatus} = this.props;
     setLegend('Buttons became active now')
@@ -25,7 +23,6 @@ class Battle extends Component {
     }
     setTimeout(secondText, 1500);
   }
-
 
   componentDidMount = () => {
 
@@ -57,78 +54,153 @@ class Battle extends Component {
     )
   }
 
-  enemyAttack = () => {
-    const {
-      applyEnemyAttack, 
-      setMenuButtonsStatus, 
-      setLegend,
-      setCharacterCardStyle
-    } = this.props;
+  // enemyAttack = () => {
+  //   const {
+  //     applyEnemyAttack, 
+  //     setMenuButtonsStatus, 
+  //     setLegend,
+  //     setCharacterCardStyle,
+  //     character
+  //   } = this.props;
+  //   const attackValues = [0, 5, 10, 15, 20];
+  //   const randomAttackValue = attackValues[Math.floor(Math.random() * attackValues.length)];
+  //   const thirdTextWin = 'Your health reached zero';
+  //   const thirdTextContinue = 'Now it\'s your turn';
+  //   applyEnemyAttack(randomAttackValue);
+  //   setCharacterCardStyle('monsterCard');
+  //   setLegend('Your enemy made attack');
+  //   const secondText = () => {
+  //     setLegend(`Your health damage is ${randomAttackValue}`);
+  //     setCharacterCardStyle(null);
+  //   }
+  //   const thirdText = (text) => {
+  //     setLegend(text);
+  //     if (character.health > 0) {
+  //       setMenuButtonsStatus();
+  //     }
+  //   }
+  //   const forthText = () => {
+  //     setLegend('You loose')
+  //   }    
+  //   setTimeout(secondText, 1500);
+  //   if (character.health === 0){
+  //     setTimeout(thirdText(thirdTextWin), 3000)
+  //     setTimeout(forthText, 4500)
+  //   } else {
+  //     setTimeout(thirdText(thirdTextContinue), 3000);
+  //   }
+  // }
+
+  // standardAttack = () => {
+  //   const {
+  //     applyStandardAttack, 
+  //     setMenuButtonsStatus, 
+  //     setEnemyCardStyle, 
+  //     setLegend
+  //   } = this.props;
+  //   applyStandardAttack();
+  //   setEnemyCardStyle('monsterCard');
+  //   setMenuButtonsStatus();
+  //   setLegend('You made standard attack');
+  //   const secondText = () => {
+  //     setLegend('Now it\'s turn of your enemy');
+  //     this.enemyAttack();
+  //     setEnemyCardStyle(null);
+  //   }
+  //   setTimeout(secondText, 1500);
+  // }
+
+  // randomAttack = () => {
+  //   const {
+  //     applyRandomAttack, 
+  //     setMenuButtonsStatus, 
+  //     setLegend,
+  //     setEnemyCardStyle,
+  //     enemy
+  //   } = this.props;
+  //   const attackValues = [0, 5, 10, 15, 20];
+  //   const randomAttackValue = attackValues[Math.floor(Math.random() * attackValues.length)];
+  //   const thirdTextWin = 'Enemy health reached zero';
+  //   const thirdTextContinue = 'Now it\'s turn of your enemy';
+  //   const secondText = () => {
+  //     setLegend(`Enemy health damage is ${randomAttackValue}`);
+  //     setEnemyCardStyle(null);
+  //   }
+  //   const thirdText = (text) => {
+  //     setLegend(text);
+  //     if (enemy.health > 0){
+  //       this.enemyAttack();
+  //     }
+  //   }
+  //   const forthText = () => {
+  //     setLegend('You win')
+  //   }
+  //   applyRandomAttack(randomAttackValue);
+  //   setEnemyCardStyle('monsterCard');
+  //   setMenuButtonsStatus();
+  //   setLegend('You made random attack');
+  //   setTimeout(secondText, 1500);
+  //   if (enemy.health === 0){
+  //     setTimeout(thirdText(thirdTextWin), 3000)
+  //     setTimeout(forthText, 4500)
+  //   } else {
+  //     setTimeout(thirdText(thirdTextContinue), 3000);
+  //   }
+  // }
+
+  randomAttackValue = () => {
     const attackValues = [0, 5, 10, 15, 20];
-    const randomAttackValue = attackValues[Math.floor(Math.random() * attackValues.length)];
-    applyEnemyAttack(randomAttackValue);
-    setCharacterCardStyle('monsterCard');
-    setLegend('Your enemy made attack');
-    const secondText = () => {
-      setLegend(`Your health damage is ${randomAttackValue}`);
-      setCharacterCardStyle(null);
-    }
-    const thirdText = () => {
-      setLegend('Now it\'s your turn');
-      setMenuButtonsStatus();
-    }
-    setTimeout(secondText, 1500);
-    setTimeout(thirdText, 3000);
+    const randomValue = attackValues[Math.floor(Math.random() * attackValues.length)];
+    return randomValue;
   }
 
-  standardAttack = () => {
+  attack = (attackValue) => {
     const {
-      applyStandardAttack, 
-      setMenuButtonsStatus, 
-      setEnemyCardStyle, 
-      setLegend
-    } = this.props;
-    applyStandardAttack();
-    setEnemyCardStyle('monsterCard');
-    setMenuButtonsStatus();
-    setLegend('You made standard attack');
-    const secondText = () => {
-      setLegend('Now it\'s turn of your enemy');
-      this.enemyAttack();
-      setEnemyCardStyle(null);
-    }
-    setTimeout(secondText, 1500);
-  }
-
-  randomAttack = () => {
-    const {
-      applyRandomAttack, 
+      applyAttack, 
       setMenuButtonsStatus, 
       setLegend,
-      setEnemyCardStyle
+      setEnemyCardStyle,
+      character,
+      enemy
     } = this.props;
-    const attackValues = [0, 5, 10, 15, 20];
-    const randomAttackValue = attackValues[Math.floor(Math.random() * attackValues.length)];
+    const thirdTextWin = 'Enemy health reached zero';
+    const thirdTextContinue = 'Now it\'s turn of your enemy';
     const secondText = () => {
-      setLegend(`Enemy health damage is ${randomAttackValue}`);
+      setLegend(`Enemy health damage is ${attackValue}`);
       setEnemyCardStyle(null);
     }
-    const thirdText = () => {
-      setLegend('Now it\'s turn of your enemy');
-      this.enemyAttack();
+    const thirdText = (text) => {
+      setLegend(text);
+      // if (enemy.health > 0){
+      //   this.enemyAttack();
+      // }
     }
-    applyRandomAttack(randomAttackValue);
+    const forthText = () => {
+      setLegend('You win')
+    }
+    applyAttack(attackValue);
     setEnemyCardStyle('monsterCard');
     setMenuButtonsStatus();
-    setLegend('You made random attack');
+    if (attackValue === character.attack){
+      setLegend('You made standard attack');
+    } else {
+      setLegend('You made random attack')
+    }
     setTimeout(secondText, 1500);
-    setTimeout(thirdText, 3000);
+    if (enemy.health === 0){
+      setTimeout(thirdText(thirdTextWin), 3000)
+      setTimeout(forthText, 4500)
+    } else {
+      setTimeout(thirdText(thirdTextContinue), 3000);
+    }  
   }
 
   render(){
 
     const {character, enemy, menuButtons, characterCard, enemyCard} = this.props;
     console.log(this.props);
+    console.log(character.attack);
+    console.log(this.randomAttackValue());
     return (
       <React.Fragment>
         <Grid container justify='space-around'>
@@ -150,7 +222,7 @@ class Battle extends Component {
             <Button 
               variant='contained' 
               color='primary'
-              onClick={this.standardAttack}
+              onClick={this.attack(character.attack)}
               disabled={menuButtons}
             >
               Standard Attack
@@ -161,7 +233,7 @@ class Battle extends Component {
               variant='contained' 
               color='primary'
               disabled={menuButtons}
-              onClick={this.randomAttack}
+              onClick={this.attack(this.randomAttackValue())}
             >
               Random Attack
             </Button>
@@ -197,8 +269,7 @@ const mapStateToProps = state => {
 }
 
 const mapDispatchToProps = dispatch => ({
-  applyStandardAttack: () => dispatch(applyStandardAttack()),
-  applyRandomAttack: (randomValue) => dispatch(applyRandomAttack(randomValue)),
+  applyAttack: (value) => dispatch(applyAttack(value)),
   setMenuButtonsStatus: () => dispatch(setMenuButtonsStatus()),
   setSubtitle: (text) => dispatch(setSubtitle(text)),
   setLegend: (text) => dispatch(setLegend(text)),

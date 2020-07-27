@@ -4,6 +4,7 @@ import StartGame from './StartGame';
 import ChooseMonsters from './ChooseMonsters';
 import Battle from './Battle';
 import Header from './Header';
+import EndGame from './EndGame';
 
 
 const GameController = ({startGame, character, enemy}) => {
@@ -11,7 +12,12 @@ const GameController = ({startGame, character, enemy}) => {
     return <StartGame/>
   }
 
+  if (character && character.health === 0){
+    return <EndGame/>
+  }
+
   const mode = () => {
+
     if (!character || !enemy){
       return <ChooseMonsters/>
     } else {

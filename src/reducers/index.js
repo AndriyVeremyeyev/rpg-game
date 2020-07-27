@@ -33,21 +33,11 @@ const reducer = (state = initialState, action) => {
         ...state,
         startGame: true
       }
-    case 'APPLY_STANDARD_ATTACK':
-      const {health} = state.enemy;
-      const {attack} = state.character;
-      const modifiedHealth = health > 0 ? health-attack : 0;
-      const modifiedEnemy = {...state.enemy, health: modifiedHealth};
-
+    case 'APPLY_ATTACK':
+      const modifiedHealth = state.enemy.health > 0 ? state.enemy.health-action.payload : 0;
       return {
         ...state,
-        enemy: modifiedEnemy
-      }
-    case 'APPLY_RANDOM_ATTACK':
-      const modifiedHealthWithRandom = state.enemy.health > 0 ? state.enemy.health-action.payload : 0;
-      return {
-        ...state,
-        enemy: {...state.enemy, health: modifiedHealthWithRandom}
+        enemy: {...state.enemy, health: modifiedHealth}
       }      
     case 'SET_MENU_BUTTONS_STATUS' :
       return {
@@ -55,7 +45,6 @@ const reducer = (state = initialState, action) => {
         menuButtons: !state.menuButtons
       }
     case 'SET_SUBTITLE' :
-      console.log(action.payload)
       return {
         ...state,
         subTitle: action.payload
@@ -69,7 +58,7 @@ const reducer = (state = initialState, action) => {
       const modifiedCharacterHealth = state.character.health > 0 ? state.character.health-action.payload : 0;
       return {
         ...state,
-        enemy: {...state.character, health: modifiedCharacterHealth}
+        character: {...state.character, health: modifiedCharacterHealth}
       }
     case 'SET_CHARACTER_CARD_STYLE':
       return {
