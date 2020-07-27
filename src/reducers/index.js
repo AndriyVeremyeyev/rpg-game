@@ -2,10 +2,14 @@ const initialState = {
   startGame: false,
   randomMonsters: [],
   character: null,
-  enemy: null
+  enemy: null,
+  textOneVisible: false,
+  textTwoVisible: false,
+  menuButtons: false
 }
 
 const reducer = (state = initialState, action) => {
+
   switch (action.type) {
     case 'SET_RANDOM_MONSTERS':
       return {
@@ -27,6 +31,31 @@ const reducer = (state = initialState, action) => {
         ...state,
         startGame: true
       }
+    case 'SET_TEXT_ONE_VISIBLE':
+      return {
+        ...state,
+        textOneVisible: !state.textOneVisible
+      }
+    case 'SET_TEXT_TWO_VISIBLE':
+      return {
+        ...state,
+        textTwoVisible: !state.textTwoVisible
+      }
+    case 'APPLY_STANDARD_ATTACK':
+      const {health} = state.enemy;
+      const {attack} = state.character;
+      const modifiedHealth = health > 0 ? health-attack : 0  
+      const modifiedEnemy = {...state.enemy, health: modifiedHealth}
+
+      return {
+        ...state,
+        enemy: modifiedEnemy
+      }
+    case 'SET_MENU_BUTTONS_STATUS' :
+      return {
+        ...state,
+        menuButtons: !state.menuButtons
+      }             
     default:
       return state
   }

@@ -24,3 +24,27 @@ export const setStartGame = () => {
     type: 'SET_START_GAME'
   }
 }
+
+export const setTextOneVisible = () => {
+  return {
+    type: 'SET_TEXT_ONE_VISIBLE'
+  }
+}
+
+export const setTextTwoVisible = () => {
+  return {
+    type: 'SET_TEXT_TWO_VISIBLE'
+  }  
+}
+
+export const applyStandardAttack = () => {
+  return {
+    type: 'APPLY_STANDARD_ATTACK'
+  }
+}
+
+export const setMenuButtonsStatus = () => {
+  return {
+    type: 'SET_MENU_BUTTONS_STATUS'
+  }
+}
