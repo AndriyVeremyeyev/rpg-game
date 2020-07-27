@@ -43,6 +43,13 @@ export const applyStandardAttack = () => {
   }
 }
 
+export const applyRandomAttack = (randomValue) => {
+  return {
+    type: 'APPLY_RANDOM_ATTACK',
+    payload: randomValue
+  }
+}
+
 export const setMenuButtonsStatus = () => {
   return {
     type: 'SET_MENU_BUTTONS_STATUS'

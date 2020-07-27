@@ -44,13 +44,20 @@ const reducer = (state = initialState, action) => {
     case 'APPLY_STANDARD_ATTACK':
       const {health} = state.enemy;
       const {attack} = state.character;
-      const modifiedHealth = health > 0 ? health-attack : 0  
-      const modifiedEnemy = {...state.enemy, health: modifiedHealth}
+      const modifiedHealth = health > 0 ? health-attack : 0;
+      const modifiedEnemy = {...state.enemy, health: modifiedHealth};
 
       return {
         ...state,
         enemy: modifiedEnemy
       }
+    case 'APPLY_RANDOM_ATTACK':
+
+      const modifiedHealthWithRandom = state.enemy.health > 0 ? state.enemy.health-action.payload : 0;
+      return {
+        ...state,
+        enemy: {...state.enemy, health: modifiedHealthWithRandom}
+      }      
     case 'SET_MENU_BUTTONS_STATUS' :
       return {
         ...state,

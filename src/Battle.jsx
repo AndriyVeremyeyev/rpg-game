@@ -1,7 +1,12 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import { Grid, Button, Typography, Paper } from '@material-ui/core';
-import {setTextOneVisible, setTextTwoVisible, applyStandardAttack , setMenuButtonsStatus} from './actions';
+import {
+  setTextOneVisible, 
+  setTextTwoVisible, 
+  applyStandardAttack , 
+  setMenuButtonsStatus, 
+  applyRandomAttack} from './actions';
 
 class Battle extends Component {
 
@@ -51,12 +56,18 @@ class Battle extends Component {
     this.props.setMenuButtonsStatus();
   }
 
+  randomAttack = () => {
+    const attackValues = [0, 5, 10, 15, 20];
+    const randomAttackValue = attackValues[Math.floor(Math.random() * attackValues.length)];
+    console.log(randomAttackValue);
+    this.props.applyRandomAttack(randomAttackValue);
+    this.props.setMenuButtonsStatus();
+  }
+
   render(){
 
-    console.log(this.props);
-
     const {character, enemy, menuButtons} = this.props;
-
+    console.log(this.props);
     return (
       <React.Fragment>
         <Typography style={{textAlign: 'center'}} variant='h3'>Battle</Typography>
@@ -92,6 +103,7 @@ class Battle extends Component {
               variant='contained' 
               color='primary'
               disabled={menuButtons}
+              onClick={this.randomAttack}
             >
               Random Attack
             </Button>
@@ -128,6 +140,7 @@ const mapDispatchToProps = dispatch => ({
   setTextOneVisible: () => dispatch(setTextOneVisible()),
   setTextTwoVisible: () => dispatch(setTextTwoVisible()),
   applyStandardAttack: () => dispatch(applyStandardAttack()),
+  applyRandomAttack: (randomValue) => dispatch(applyRandomAttack(randomValue)),
   setMenuButtonsStatus: () => dispatch(setMenuButtonsStatus())
 })
 
