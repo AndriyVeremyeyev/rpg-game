@@ -7,6 +7,7 @@ const StartGame = ({setStartGame}) => {
   return (
     <Grid style={{height: 500}} container direction="column" justify="center" alignItems="center">
       <Typography style={{marginBottom: 20}} variant='h4'>Welcome to game</Typography>
+      <Typography style={{marginBottom: 20}} variant='h3'>Monsters Fight</Typography>
       <Button variant='contained' color='primary' onClick={setStartGame}>Start game</Button>
     </Grid>
   )

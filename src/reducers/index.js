@@ -3,9 +3,9 @@ const initialState = {
   randomMonsters: [],
   character: null,
   enemy: null,
-  textOneVisible: false,
-  textTwoVisible: false,
-  menuButtons: true
+  menuButtons: true,
+  subTitle: null,
+  legend: null
 }
 
 const reducer = (state = initialState, action) => {
@@ -31,16 +31,6 @@ const reducer = (state = initialState, action) => {
         ...state,
         startGame: true
       }
-    case 'SET_TEXT_ONE_VISIBLE':
-      return {
-        ...state,
-        textOneVisible: !state.textOneVisible
-      }
-    case 'SET_TEXT_TWO_VISIBLE':
-      return {
-        ...state,
-        textTwoVisible: !state.textTwoVisible
-      }
     case 'APPLY_STANDARD_ATTACK':
       const {health} = state.enemy;
       const {attack} = state.character;
@@ -62,7 +52,18 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         menuButtons: !state.menuButtons
-      }             
+      }
+    case 'SET_SUBTITLE' :
+      console.log(action.payload)
+      return {
+        ...state,
+        subTitle: action.payload
+      }
+    case 'SET_LEGEND' :
+      return {
+        ...state,
+        legend: action.payload
+      }                 
     default:
       return state
   }

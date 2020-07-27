@@ -2,27 +2,29 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import { Grid, Button, Typography, Paper } from '@material-ui/core';
 import {
-  setTextOneVisible, 
-  setTextTwoVisible, 
   applyStandardAttack , 
   setMenuButtonsStatus, 
-  applyRandomAttack} from './actions';
+  applyRandomAttack,
+  setLegend,
+  setSubtitle
+} from './actions';
 
 class Battle extends Component {
 
 
   allowApplyAttack = () => {
-    const {setTextTwoVisible, setMenuButtonsStatus} = this.props;
-    setTextTwoVisible();
+    const {setLegend, setMenuButtonsStatus} = this.props;
+    setLegend('Buttons became active now. Please, choose your action')
     setMenuButtonsStatus();
   }
 
 
   componentDidMount = () => {
 
-    const {setTextOneVisible} = this.props;
-    setTimeout(setTextOneVisible, 100);
-    setTimeout(setTextOneVisible, 1900);
+    const {setLegend, setSubtitle} = this.props;
+    setLegend(null);
+    setSubtitle('Battle Mode');
+    setTimeout(setLegend('This is Battle Mode'), 100);
     setTimeout(this.allowApplyAttack, 2000);
   }
 
@@ -76,7 +78,6 @@ class Battle extends Component {
     console.log(this.props);
     return (
       <React.Fragment>
-        <Typography style={{textAlign: 'center'}} variant='h3'>Battle</Typography>
         <Grid container justify='space-around'>
           <Grid item>
             {this.textWrapping('Your character', 'h5')}
@@ -86,14 +87,8 @@ class Battle extends Component {
             {this.textWrapping('Your enemy', 'h5')}
             {this.monsterCard(enemy)}
           </Grid>
-          
         </Grid>
-        <Grid container justify='center' alignItems='center'>
-          <div style={{borderStyle: 'solid', borderWidth: 1, height: 50, marginTop: 20, marginBottom: 20, paddingRight: 50, paddingLeft: 50, paddingTop: 15}}>
-            {this.textWrapping(this.legend(), 'subtitle1')}
-          </div>
-        </Grid>
-        <Grid container spacing={2} justify='center'>
+        <Grid style={{marginTop: 50}} container spacing={2} justify='center'>
           <Grid item>
             <Button 
               variant='contained' 
@@ -143,11 +138,11 @@ const mapStateToProps = state => {
 }
 
 const mapDispatchToProps = dispatch => ({
-  setTextOneVisible: () => dispatch(setTextOneVisible()),
-  setTextTwoVisible: () => dispatch(setTextTwoVisible()),
   applyStandardAttack: () => dispatch(applyStandardAttack()),
   applyRandomAttack: (randomValue) => dispatch(applyRandomAttack(randomValue)),
-  setMenuButtonsStatus: () => dispatch(setMenuButtonsStatus())
+  setMenuButtonsStatus: () => dispatch(setMenuButtonsStatus()),
+  setSubtitle: (text) => dispatch(setSubtitle(text)),
+  setLegend: (text) => dispatch(setLegend(text))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Battle);;

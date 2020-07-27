@@ -25,18 +25,6 @@ export const setStartGame = () => {
   }
 }
 
-export const setTextOneVisible = () => {
-  return {
-    type: 'SET_TEXT_ONE_VISIBLE'
-  }
-}
-
-export const setTextTwoVisible = () => {
-  return {
-    type: 'SET_TEXT_TWO_VISIBLE'
-  }  
-}
-
 export const applyStandardAttack = () => {
   return {
     type: 'APPLY_STANDARD_ATTACK'
@@ -53,5 +41,19 @@ export const applyRandomAttack = (randomValue) => {
 export const setMenuButtonsStatus = () => {
   return {
     type: 'SET_MENU_BUTTONS_STATUS'
+  }
+}
+
+export const setSubtitle = (text) => {
+  return {
+    type: 'SET_SUBTITLE',
+    payload: text
+  }
+}
+
+export const setLegend = (text) => {
+  return {
+    type: 'SET_LEGEND',
+    payload: text
   }
 }

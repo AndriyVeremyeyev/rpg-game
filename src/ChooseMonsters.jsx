@@ -6,32 +6,29 @@ import {connect} from 'react-redux';
 import {
   setRandomMonsters, 
   setCharacter, 
-  setEnemy
+  setEnemy,
+  setSubtitle,
+  setLegend
 } from './actions';
 
 class ChooseMonsters extends Component {
 
   componentDidMount = () => {
+    const {setRandomMonsters, setSubtitle, setLegend} = this.props
     const shuffled = database.sort(() => 0.5 - Math.random()).slice(0, 4);
-    this.props.setRandomMonsters(shuffled); 
+    setRandomMonsters(shuffled);
+    setSubtitle('Monsters Menu')
+    setLegend('Choose your character')
   }
-
-  comments = () => {
-    if (!this.props.character){
-      return "Choose your character"
-    }
-    if (this.props.character && !this.props.enemy){
-      return "Choose your enemy"
-    }
-  } 
   
   gridOnClick = (id) => {
     const monster = this.props.randomMonsters.filter(m => m.id === id)
     const otherMonsters = this.props.randomMonsters.filter(m => m.id !== id)
-    const {setCharacter, setEnemy, setRandomMonsters} = this.props;
+    const {setCharacter, setEnemy, setRandomMonsters, setLegend} = this.props;
     if (!this.props.character){
       setCharacter(monster[0]);
       setRandomMonsters(otherMonsters);
+      setLegend('Choose your enemy')
     } else {
       setEnemy(monster[0]);
       setRandomMonsters(otherMonsters);
@@ -58,7 +55,6 @@ class ChooseMonsters extends Component {
             )
           })}
         </Grid>
-        <Typography variant='h5'>{this.comments()}</Typography>
       </React.Fragment>
     )
   }
@@ -79,6 +75,8 @@ const mapDispatchToProps = dispatch => ({
   setRandomMonsters: (monsters) => dispatch(setRandomMonsters(monsters)),
   setCharacter: (character) => dispatch(setCharacter(character)),
   setEnemy: (enemy) => dispatch(setEnemy(enemy)),
+  setSubtitle: (text) => dispatch(setSubtitle(text)),
+  setLegend: (text) => dispatch(setLegend(text))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(ChooseMonsters);
