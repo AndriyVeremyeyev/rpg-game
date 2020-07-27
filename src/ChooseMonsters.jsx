@@ -3,7 +3,11 @@ import {Grid, Paper, Typography} from '@material-ui/core/';
 import database from './database';
 import './ChooseMonsters.css';
 import {connect} from 'react-redux';
-import {setRandomMonsters, setCharacter, setEnemy} from './actions';
+import {
+  setRandomMonsters, 
+  setCharacter, 
+  setEnemy
+} from './actions';
 
 class ChooseMonsters extends Component {
 
@@ -74,7 +78,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => ({
   setRandomMonsters: (monsters) => dispatch(setRandomMonsters(monsters)),
   setCharacter: (character) => dispatch(setCharacter(character)),
-  setEnemy: (enemy) => dispatch(setEnemy(enemy)) 
+  setEnemy: (enemy) => dispatch(setEnemy(enemy)),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(ChooseMonsters);

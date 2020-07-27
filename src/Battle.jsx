@@ -11,12 +11,19 @@ import {
 class Battle extends Component {
 
 
+  allowApplyAttack = () => {
+    const {setTextTwoVisible, setMenuButtonsStatus} = this.props;
+    setTextTwoVisible();
+    setMenuButtonsStatus();
+  }
+
+
   componentDidMount = () => {
 
-    const {setTextOneVisible, setTextTwoVisible} = this.props;
+    const {setTextOneVisible} = this.props;
     setTimeout(setTextOneVisible, 100);
     setTimeout(setTextOneVisible, 1900);
-    setTimeout(setTextTwoVisible, 2000);
+    setTimeout(this.allowApplyAttack, 2000);
   }
 
 
@@ -59,7 +66,6 @@ class Battle extends Component {
   randomAttack = () => {
     const attackValues = [0, 5, 10, 15, 20];
     const randomAttackValue = attackValues[Math.floor(Math.random() * attackValues.length)];
-    console.log(randomAttackValue);
     this.props.applyRandomAttack(randomAttackValue);
     this.props.setMenuButtonsStatus();
   }

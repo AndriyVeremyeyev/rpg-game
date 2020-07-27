@@ -5,7 +5,7 @@ const initialState = {
   enemy: null,
   textOneVisible: false,
   textTwoVisible: false,
-  menuButtons: false
+  menuButtons: true
 }
 
 const reducer = (state = initialState, action) => {
