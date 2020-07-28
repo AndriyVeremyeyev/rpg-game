@@ -80,7 +80,7 @@ class Battle extends Component {
     let thirdTextWin = '';
     let thirdTextContinue = '';
 
-    const secondText = () => {
+    const secondStep = () => {
       if (monster.name === character.name){
         setLegend(`Enemy health damage is ${attackValue}`);
         setEnemyCardStyle(null);
@@ -89,24 +89,23 @@ class Battle extends Component {
         setCharacterCardStyle(null);
       }
     }
-    const thirdText = (text) => {
+    const thirdStep = (text) => {
       setLegend(text);
-      if (monster.name === character.name && enemy.health > 0){
-        this.attack(this.randomAttackValue(), enemy, n+1);
+      if (monster.name === character.name && enemy.health - attackValue > 0){
+        this.attack(50, enemy, n+1);
       }
-      if (monster.name === enemy.name && character.health > 0){
+      if (monster.name === enemy.name && character.health - attackValue > 0){
         setMenuButtonsStatus();
-        console.log('10');
       }
     }
-    const forthText = () => {
+    const forthStep = () => {
       if (monster.name === character.name){
         setLegend('You win')
       } else {
         setLegend('You loose')
       }
     }
-    setTimeout(secondText, 1500);
+    setTimeout(secondStep, 1500);
     if (monster.name === character.name){
       applyAttack(attackValue);
       setEnemyCardStyle('monsterCard');      
@@ -117,12 +116,13 @@ class Battle extends Component {
         setLegend('You made random attack')
       }
       thirdTextWin = 'Enemy health reached zero';
-      thirdTextContinue = 'Now it\'s turn of your enemy';        
-      if (enemy.health === 0){
-        setTimeout(() => thirdText(thirdTextWin), 3000)
-        setTimeout(() => forthText, 4500)
+      thirdTextContinue = 'Now it\'s turn of your enemy';
+      console.log(enemy.health - attackValue)
+      if (enemy.health - attackValue <= 0){
+        setTimeout(() => thirdStep(thirdTextWin), 3000)
+        setTimeout(forthStep, 4500)
       } else {
-        setTimeout(() => thirdText(thirdTextContinue), 4500);
+        setTimeout(() => thirdStep(thirdTextContinue), 4500);
       }        
     } else {
       applyEnemyAttack(attackValue);
@@ -130,11 +130,11 @@ class Battle extends Component {
       setLegend('Your enemy made attack');
       thirdTextWin = 'Your health reached zero';
       thirdTextContinue = 'Now it\'s your turn';      
-      if (character.health === 0){
-        setTimeout(() => thirdText(thirdTextWin), 3000)
-        setTimeout(() => forthText, 4500)
+      if (character.health - attackValue <= 0){
+        setTimeout(() => thirdStep(thirdTextWin), 3000)
+        setTimeout(forthStep, 4500)
       } else {
-        setTimeout(() => thirdText(thirdTextContinue), 3000);
+        setTimeout(() => thirdStep(thirdTextContinue), 3000);
       }
     }
   }

@@ -34,7 +34,7 @@ const reducer = (state = initialState, action) => {
         startGame: true
       }
     case 'APPLY_ATTACK':
-      const modifiedHealth = state.enemy.health > 0 ? state.enemy.health-action.payload : 0;
+      const modifiedHealth = state.enemy.health-action.payload > 0 ? state.enemy.health-action.payload : 0;
       return {
         ...state,
         enemy: {...state.enemy, health: modifiedHealth}
@@ -55,7 +55,7 @@ const reducer = (state = initialState, action) => {
         legend: action.payload
       }
     case 'APPLY_ENEMY_ATTACK':
-      const modifiedCharacterHealth = state.character.health > 0 ? state.character.health-action.payload : 0;
+      const modifiedCharacterHealth = state.character.health-action.payload > 0 ? state.character.health-action.payload : 0;
       return {
         ...state,
         character: {...state.character, health: modifiedCharacterHealth}

@@ -5,22 +5,24 @@ import ChooseMonsters from './ChooseMonsters';
 import Battle from './Battle';
 import Header from './Header';
 import EndGame from './EndGame';
+import {setSubtitle} from './actions'
 
 
-const GameController = ({startGame, character, enemy}) => {
+const GameController = ({startGame, character, enemy, legend, setSubtitle}) => {
   if (!startGame) {
     return <StartGame/>
-  }
-
-  if (character && character.health === 0){
-    return <EndGame/>
   }
 
   const mode = () => {
 
     if (!character || !enemy){
       return <ChooseMonsters/>
-    } else {
+    } else if (legend === 'You loose') {
+      setSubtitle('End of Game')
+      return <EndGame/>
+    } 
+    
+    else {
       return <Battle/>
     }
   }
@@ -35,12 +37,17 @@ const GameController = ({startGame, character, enemy}) => {
 }
 
 const mapStateToProps = state => {
-  const {startGame, character, enemy} = state;
+  const {startGame, character, enemy, legend} = state;
   return {
     startGame,
     character,
-    enemy
+    enemy,
+    legend
   }
 }
 
-export default connect(mapStateToProps)(GameController);
+const mapDispatchToProps = dispatch => ({
+  setSubtitle: (text) => dispatch(setSubtitle(text)),
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(GameController);
