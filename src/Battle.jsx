@@ -8,7 +8,9 @@ import {
   setSubtitle,
   applyEnemyAttack,
   setCharacterCardStyle,
-  setEnemyCardStyle
+  setEnemyCardStyle,
+  setInventoryVisible,
+  setBattleVisible
 } from './actions';
 import './Battle.css';
 
@@ -139,6 +141,19 @@ class Battle extends Component {
     }
   }
 
+  letsSetInventoryVisible = () => {
+
+    const {
+      setInventoryVisible,
+      setBattleVisible,
+      setMenuButtonsStatus
+    } = this.props;
+
+    setInventoryVisible();
+    setBattleVisible();
+    setMenuButtonsStatus();
+  }
+
   render(){
 
     const {character, enemy, menuButtons, characterCard, enemyCard} = this.props;
@@ -185,6 +200,7 @@ class Battle extends Component {
               variant='contained' 
               color='primary'
               disabled={menuButtons}
+              onClick={this.letsSetInventoryVisible}
             >
               Store
             </Button>
@@ -218,6 +234,8 @@ const mapDispatchToProps = dispatch => ({
   applyEnemyAttack: (randomValue) => dispatch(applyEnemyAttack(randomValue)),
   setCharacterCardStyle: (style) => dispatch(setCharacterCardStyle(style)),
   setEnemyCardStyle: (style) => dispatch(setEnemyCardStyle(style)),
+  setInventoryVisible: () => dispatch(setInventoryVisible()),
+  setBattleVisible: () => dispatch(setBattleVisible())
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Battle);;

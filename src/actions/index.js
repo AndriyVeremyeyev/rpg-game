@@ -72,3 +72,21 @@ export const setEnemyCardStyle = (style) => {
     payload: style
   }  
 }
+
+export const setBattleVisible = () => {
+  return {
+    type: 'SET_BATTLE_VISIBLE'
+  }
+}
+
+export const setInventoryVisible = () => {
+  return {
+    type: 'SET_INVENTORY_VISIBLE'
+  }
+}
+
+export const setMonstersMenuVisible = () => {
+  return {
+    type: 'SET_MONSTERS_MENU_VISIBLE'
+  }
+}

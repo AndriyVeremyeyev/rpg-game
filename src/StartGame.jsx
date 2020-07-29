@@ -1,14 +1,20 @@
 import React from 'react';
 import {Grid, Typography, Button} from '@material-ui/core/';
 import {connect} from 'react-redux';
-import { setStartGame } from './actions';
+import { setStartGame, setMonstersMenuVisible } from './actions';
 
-const StartGame = ({setStartGame}) => {
+const StartGame = ({setStartGame, setMonstersMenuVisible}) => {
+
+  const letStartGame = () => {
+    setStartGame();
+    setMonstersMenuVisible();
+  }
+
   return (
     <Grid style={{height: 500}} container direction="column" justify="center" alignItems="center">
       <Typography style={{marginBottom: 20}} variant='h4'>Welcome to game</Typography>
       <Typography style={{marginBottom: 20}} variant='h3'>Monsters Fight</Typography>
-      <Button variant='contained' color='primary' onClick={setStartGame}>Start game</Button>
+      <Button variant='contained' color='primary' onClick={letStartGame}>Start game</Button>
     </Grid>
   )
 }
@@ -16,6 +22,7 @@ const StartGame = ({setStartGame}) => {
 
 const mapDispatchToProps = dispatch => ({
   setStartGame: () => dispatch(setStartGame()),
+  setMonstersMenuVisible: () => dispatch(setMonstersMenuVisible()), 
 })
 
 export default connect(null, mapDispatchToProps)(StartGame);

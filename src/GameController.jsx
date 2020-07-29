@@ -6,25 +6,33 @@ import Battle from './Battle';
 import Header from './Header';
 import EndGame from './EndGame';
 import {setSubtitle} from './actions'
+import Inventory from './Inventory';
 
 
-const GameController = ({startGame, character, enemy, legend, setSubtitle}) => {
+const GameController = ({startGame, character, enemy, legend, setSubtitle, battlePage, inventoryPage, monstersMenuPage}) => {
+
+  console.log(monstersMenuPage);
+  console.log(inventoryPage);
+
   if (!startGame) {
     return <StartGame/>
   }
 
   const mode = () => {
 
-    if (!character || !enemy){
+    if (monstersMenuPage){
       return <ChooseMonsters/>
     } else if (legend === 'You loose') {
       setSubtitle('End of Game')
       return <EndGame/>
-    } 
-    
-    else {
+    }
+    if (battlePage){
       return <Battle/>
     }
+    if (inventoryPage){
+      return <Inventory/>
+    }
+    
   }
 
   return (
@@ -37,12 +45,15 @@ const GameController = ({startGame, character, enemy, legend, setSubtitle}) => {
 }
 
 const mapStateToProps = state => {
-  const {startGame, character, enemy, legend} = state;
+  const {startGame, character, enemy, legend, battlePage, inventoryPage, monstersMenuPage} = state;
   return {
     startGame,
     character,
     enemy,
-    legend
+    legend,
+    battlePage,
+    inventoryPage,
+    monstersMenuPage
   }
 }
 

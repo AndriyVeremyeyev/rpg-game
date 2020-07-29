@@ -7,7 +7,10 @@ const initialState = {
   subTitle: null,
   legend: null,
   characterCard: null,
-  enemyCard: null
+  enemyCard: null,
+  battlePage: false,
+  inventoryPage: false,
+  monstersMenuPage: false
 }
 
 const reducer = (state = initialState, action) => {
@@ -69,7 +72,23 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         enemyCard: action.payload
-      }           
+      }
+    case 'SET_BATTLE_VISIBLE':
+      return {
+        ...state,
+        battlePage: !state.battlePage
+      }
+    case 'SET_INVENTORY_VISIBLE':
+      return {
+        ...state,
+        inventoryPage: !state.inventoryPage
+      }
+    case 'SET_MONSTERS_MENU_VISIBLE':
+      return {
+        ...state,
+        monstersMenuPage: !state.monstersMenuPage
+      }          
+      
     default:
       return state
   }

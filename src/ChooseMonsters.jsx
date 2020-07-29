@@ -8,7 +8,9 @@ import {
   setCharacter, 
   setEnemy,
   setSubtitle,
-  setLegend
+  setLegend,
+  setBattleVisible,
+  setMonstersMenuVisible
 } from './actions';
 
 class ChooseMonsters extends Component {
@@ -24,7 +26,15 @@ class ChooseMonsters extends Component {
   gridOnClick = (id) => {
     const monster = this.props.randomMonsters.filter(m => m.id === id)
     const otherMonsters = this.props.randomMonsters.filter(m => m.id !== id)
-    const {setCharacter, setEnemy, setRandomMonsters, setLegend} = this.props;
+    const {
+      setCharacter, 
+      setEnemy, 
+      setRandomMonsters, 
+      setLegend, 
+      setMonstersMenuVisible, 
+      setBattleVisible
+    } = this.props;
+
     if (!this.props.character){
       setCharacter(monster[0]);
       setRandomMonsters(otherMonsters);
@@ -32,6 +42,8 @@ class ChooseMonsters extends Component {
     } else {
       setEnemy(monster[0]);
       setRandomMonsters(otherMonsters);
+      setMonstersMenuVisible();
+      setBattleVisible();
     }
   }
 
@@ -76,7 +88,9 @@ const mapDispatchToProps = dispatch => ({
   setCharacter: (character) => dispatch(setCharacter(character)),
   setEnemy: (enemy) => dispatch(setEnemy(enemy)),
   setSubtitle: (text) => dispatch(setSubtitle(text)),
-  setLegend: (text) => dispatch(setLegend(text))
+  setLegend: (text) => dispatch(setLegend(text)),
+  setBattleVisible: () => dispatch(setBattleVisible()),
+  setMonstersMenuVisible: () => dispatch(setMonstersMenuVisible())
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(ChooseMonsters);
