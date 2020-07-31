@@ -103,3 +103,33 @@ export const setSword = () => {
     type: 'SET_SWORD'
   }
 }
+
+export const setShield = () => {
+  return {
+    type: 'SET_SHIELD'
+  }
+}
+
+export const setBow = () => {
+  return {
+    type: 'SET_BOW'
+  }
+}
+
+export const setHelmet = () => {
+  return {
+    type: 'SET_HELMET'
+  }
+}
+
+export const setPills = () => {
+  return {
+    type: 'SET_PILLS'
+  }
+}
+
+export const setWeaponCardVisibility = () => {
+  return {
+    type: 'SET_WEAPON_CARD_VISIBILITY'
+  }
+}

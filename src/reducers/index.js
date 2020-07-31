@@ -12,9 +12,22 @@ const initialState = {
   inventoryPage: false,
   monstersMenuPage: false,
   inventory: null,
+  weaponCardStatus: false
 }
 
 const reducer = (state = initialState, action) => {
+
+  const weaponApply = (weapon) => {
+    const {attack, defense, magic, health} = state.character;
+    const improvedAttack = attack+weapon.attack;
+    const improvedDefense = defense+weapon.defense;
+    const improvedMagic = magic+weapon.magic;
+    const improvedHealth = health+weapon.health;
+    return {
+      ...state,
+      character: {...state.character, attack: improvedAttack, defense: improvedDefense, magic: improvedMagic, health: improvedHealth}
+    }
+  }
 
   switch (action.type) {
     case 'SET_RANDOM_MONSTERS':
@@ -95,17 +108,22 @@ const reducer = (state = initialState, action) => {
         inventory: action.payload
       }
     case 'SET_SWORD':
-      const sword = state.inventory[0];
-      const swordImprovedAttack = state.character.attack+sword.attack;
-      const swordImprovedDefense = state.character.defense+sword.defense;
-      const swordImprovedMagic = state.character.magic+sword.magic;
-      const swordImprovedHealth = state.character.health+sword.health;
+      return weaponApply(state.inventory[0]);
+    case 'SET_SHIELD':
+      return weaponApply(state.inventory[1]);
+    case 'SET_BOW':
+      return weaponApply(state.inventory[2]);
+    case 'SET_HELMET':
+      return weaponApply(state.inventory[3]);
+    case 'SET_PILLS':
+      return weaponApply(state.inventory[4]);
+    case 'SET_WEAPON_CARD_VISIBILITY':
       return {
         ...state,
-        character: {...state.character, attack: swordImprovedAttack, defense: swordImprovedDefense, magic: swordImprovedMagic, health: swordImprovedHealth}
+        weaponCardStatus: !state.weaponCardStatus
       }
     default:
-      return state
+      return state;
   }
 }
 
