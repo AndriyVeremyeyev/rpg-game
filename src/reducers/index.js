@@ -3,7 +3,8 @@ const initialState = {
   randomMonsters: [],
   character: null,
   enemy: null,
-  menuButtons: true,
+  attackButtons: true,
+  inventoryButton: true,
   subTitle: null,
   legend: null,
   characterCard: null,
@@ -17,6 +18,7 @@ const initialState = {
   bowCardStatus: false,
   helmetCardStatus: false,
   pillsCardStatus: false,
+  battlePageOpen: 0
 }
 
 const reducer = (state = initialState, action) => {
@@ -44,7 +46,8 @@ const reducer = (state = initialState, action) => {
     const improvedHealth = health+weapon.health;
     return {
       ...state,
-      character: {...state.character, attack: improvedAttack, defense: improvedDefense, magic: improvedMagic, health: improvedHealth}
+      character: {...state.character, attack: improvedAttack, defense: improvedDefense, magic: improvedMagic, health: improvedHealth},
+
     }
   }
 
@@ -71,11 +74,16 @@ const reducer = (state = initialState, action) => {
       }
     case 'APPLY_ATTACK':
       return applyAttack(state.enemy);
-    case 'SET_MENU_BUTTONS_STATUS' :
+    case 'SET_ATTACK_BUTTONS_STATUS' :
       return {
         ...state,
-        menuButtons: !state.menuButtons
+        attackButtons: !state.attackButtons
       }
+    case 'SET_INVENTORY_BUTTON_STATUS' :
+      return {
+        ...state,
+        inventoryButton: !state.inventoryButton
+      }      
     case 'SET_SUBTITLE' :
       return {
         ...state,
@@ -101,7 +109,8 @@ const reducer = (state = initialState, action) => {
     case 'SET_BATTLE_VISIBLE':
       return {
         ...state,
-        battlePage: !state.battlePage
+        battlePage: !state.battlePage,
+        battlePageOpen: state.battlePageOpen + 1
       }
     case 'SET_INVENTORY_VISIBLE':
       return {

@@ -2,7 +2,8 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import { Grid, Button, Typography, Paper } from '@material-ui/core';
 import {
-  setMenuButtonsStatus, 
+  setAttackButtonsStatus,
+  setInventoryButtonStatus,
   applyAttack,
   setLegend,
   setSubtitle,
@@ -17,25 +18,30 @@ import './Battle.css';
 class Battle extends Component {
 
   allowApplyAttack = () => {
-    const {setLegend, setMenuButtonsStatus} = this.props;
-    setLegend('Buttons became active now')
-    setMenuButtonsStatus();
-    const secondText = () => {
-      setLegend('Make your choice from menu')
+    const {setLegend, setAttackButtonsStatus, setInventoryButtonStatus, battlePageOpen} = this.props;
+    if (battlePageOpen < 2){
+      setLegend('Buttons became active now')
+      setAttackButtonsStatus();
+      setInventoryButtonStatus();
+      const secondText = () => {
+        setLegend('Make your choice from menu')
+      }
+      setTimeout(secondText, 1500);
     }
-    setTimeout(secondText, 1500);
   }
 
   componentDidMount = () => {
-
-    const firstText = () => {
-      setLegend('This is Battle Mode')
+    const {setLegend, battlePageOpen} = this.props;
+    if (battlePageOpen < 2){
+      const firstText = () => {
+        setLegend('This is Battle Mode')
+      }
+      setLegend(null);
+      setTimeout(firstText, 1000);
+      setTimeout(this.allowApplyAttack, 2500);
+    } else {
+      setLegend('Welcome back to Battle Menu')
     }
-
-    const {setLegend} = this.props;
-    setLegend(null);
-    setTimeout(firstText, 1000);
-    setTimeout(this.allowApplyAttack, 2500);
   }
 
   textWrapping = (text, fontSize) => {
@@ -67,7 +73,7 @@ class Battle extends Component {
       applyAttack,
       applyEnemyAttack,
       setCharacterCardStyle, 
-      setMenuButtonsStatus, 
+      setAttackButtonsStatus,
       setLegend,
       setEnemyCardStyle,
       character,
@@ -96,7 +102,7 @@ class Battle extends Component {
         this.attack(50, enemy, n+1);
       }
       if (monster.name === enemy.name && character.health - attackValue > 0){
-        setMenuButtonsStatus();
+        setAttackButtonsStatus();
       }
     }
     const forthStep = () => {
@@ -110,7 +116,7 @@ class Battle extends Component {
     if (monster.name === character.name){
       applyAttack(attackValue);
       setEnemyCardStyle('monsterCard');      
-      setMenuButtonsStatus();
+      setAttackButtonsStatus();
       if (attackValue === character.attack){
         setLegend('You made standard attack');
       } else {
@@ -145,18 +151,15 @@ class Battle extends Component {
     const {
       setInventoryVisible,
       setBattleVisible,
-      setMenuButtonsStatus
     } = this.props;
 
     setInventoryVisible();
     setBattleVisible();
-    setMenuButtonsStatus();
   }
 
   render(){
 
-    const {character, enemy, menuButtons, characterCard, enemyCard} = this.props;
-    console.log(this.props);
+    const {character, enemy, attackButtons, inventoryButton, characterCard, enemyCard} = this.props;
     return (
       <React.Fragment>
         <Grid container justify='space-around'>
@@ -179,7 +182,7 @@ class Battle extends Component {
               variant='contained' 
               color='primary'
               onClick={() => this.attack(character.attack, character, 1)}
-              disabled={menuButtons}
+              disabled={attackButtons}
             >
               Standard Attack
             </Button>
@@ -188,7 +191,7 @@ class Battle extends Component {
             <Button 
               variant='contained' 
               color='primary'
-              disabled={menuButtons}
+              disabled={attackButtons}
               onClick={() => this.attack(this.randomAttackValue(), character, 1)}
             >
               Random Attack
@@ -198,7 +201,7 @@ class Battle extends Component {
             <Button 
               variant='contained' 
               color='primary'
-              disabled={menuButtons}
+              disabled={inventoryButton}
               onClick={this.letsSetInventoryVisible}
             >
               Store
@@ -212,22 +215,25 @@ class Battle extends Component {
 
 const mapStateToProps = state => {
 
-  const {character, enemy, textOneVisible, textTwoVisible, menuButtons, characterCard, enemyCard} = state;
+  const {character, enemy, textOneVisible, textTwoVisible, attackButtons, inventoryButton, characterCard, enemyCard, battlePageOpen} = state;
 
   return {
     character,
     enemy,
     textOneVisible,
     textTwoVisible,
-    menuButtons,
+    attackButtons,
+    inventoryButton,
     characterCard,
-    enemyCard
+    enemyCard,
+    battlePageOpen
   }
 }
 
 const mapDispatchToProps = dispatch => ({
   applyAttack: (value) => dispatch(applyAttack(value)),
-  setMenuButtonsStatus: () => dispatch(setMenuButtonsStatus()),
+  setAttackButtonsStatus: () => dispatch(setAttackButtonsStatus()),
+  setInventoryButtonStatus: () => dispatch(setInventoryButtonStatus()),
   setSubtitle: (text) => dispatch(setSubtitle(text)),
   setLegend: (text) => dispatch(setLegend(text)),
   applyEnemyAttack: (randomValue) => dispatch(applyEnemyAttack(randomValue)),

@@ -32,9 +32,15 @@ export const applyAttack = (value) => {
   }
 }
 
-export const setMenuButtonsStatus = () => {
+export const setAttackButtonsStatus = () => {
   return {
-    type: 'SET_MENU_BUTTONS_STATUS'
+    type: 'SET_ATTACK_BUTTONS_STATUS'
+  }
+}
+
+export const setInventoryButtonStatus = () => {
+  return {
+    type: 'SET_INVENTORY_BUTTON_STATUS'
   }
 }
 

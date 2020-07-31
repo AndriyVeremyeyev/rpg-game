@@ -13,7 +13,8 @@ import {
   setShieldCardVisibility,
   setBowCardVisibility,
   setHelmetCardVisibility,
-  setPillsCardVisibility
+  setPillsCardVisibility,
+  setInventoryButtonStatus
 } from './actions';
 import Image1 from './images/35043557-sword.jpg';
 import Image2 from './images/13103920-aged-metal-shield-isolated-on-white.jpg';
@@ -40,13 +41,15 @@ const Inventory = ({
   shieldCardStatus,
   bowCardStatus,
   helmetCardStatus,
-  pillsCardStatus
+  pillsCardStatus,
+  setInventoryButtonStatus
 }) => {
 
   const clickOnWeapon = (setWeapon, setCardVisibility) => {
     if (setWeapon){
       setWeapon();
       setCardVisibility();
+      setInventoryButtonStatus();
     }
     setInventoryVisible();
     setBattleVisible();
@@ -124,7 +127,8 @@ const mapDispatchToProps = dispatch => ({
   setShieldCardVisibility: () => dispatch(setShieldCardVisibility()),
   setBowCardVisibility: () => dispatch(setBowCardVisibility()),
   setHelmetCardVisibility: () => dispatch(setHelmetCardVisibility()),
-  setPillsCardVisibility: () => dispatch(setPillsCardVisibility())
+  setPillsCardVisibility: () => dispatch(setPillsCardVisibility()),
+  setInventoryButtonStatus: () => dispatch(setInventoryButtonStatus())
 })
 
 
