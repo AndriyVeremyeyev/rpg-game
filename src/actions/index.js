@@ -128,8 +128,32 @@ export const setPills = () => {
   }
 }
 
-export const setWeaponCardVisibility = () => {
+export const setSwordCardVisibility = () => {
   return {
-    type: 'SET_WEAPON_CARD_VISIBILITY'
+    type: 'SET_SWORD_CARD_VISIBILITY'
+  }
+}
+
+export const setShieldCardVisibility = () => {
+  return {
+    type: 'SET_SHIELD_CARD_VISIBILITY'
+  }
+}
+
+export const setBowCardVisibility = () => {
+  return {
+    type: 'SET_BOW_CARD_VISIBILITY'
+  }
+}
+
+export const setHelmetCardVisibility = () => {
+  return {
+    type: 'SET_HELMET_CARD_VISIBILITY'
+  }
+}
+
+export const setPillsCardVisibility = () => {
+  return {
+    type: 'SET_PILLS_CARD_VISIBILITY'
   }
 }

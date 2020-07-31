@@ -12,10 +12,29 @@ const initialState = {
   inventoryPage: false,
   monstersMenuPage: false,
   inventory: null,
-  weaponCardStatus: false
+  swordCardStatus: false,
+  shieldCardStatus: false,
+  bowCardStatus: false,
+  helmetCardStatus: false,
+  pillsCardStatus: false,
 }
 
 const reducer = (state = initialState, action) => {
+
+  const applyAttack = (monster) => {
+    const modifiedHealth = monster.health-action.payload > 0 ? monster.health-action.payload : 0;
+    if (monster === state.character){
+      return {
+        ...state,
+        character: {...monster, health: modifiedHealth}
+      } 
+    } else {
+      return {
+        ...state,
+        enemy: {...monster, health: modifiedHealth}
+      } 
+    }
+  }
 
   const weaponApply = (weapon) => {
     const {attack, defense, magic, health} = state.character;
@@ -51,11 +70,7 @@ const reducer = (state = initialState, action) => {
         startGame: true
       }
     case 'APPLY_ATTACK':
-      const modifiedHealth = state.enemy.health-action.payload > 0 ? state.enemy.health-action.payload : 0;
-      return {
-        ...state,
-        enemy: {...state.enemy, health: modifiedHealth}
-      }      
+      return applyAttack(state.enemy);
     case 'SET_MENU_BUTTONS_STATUS' :
       return {
         ...state,
@@ -72,11 +87,7 @@ const reducer = (state = initialState, action) => {
         legend: action.payload
       }
     case 'APPLY_ENEMY_ATTACK':
-      const modifiedCharacterHealth = state.character.health-action.payload > 0 ? state.character.health-action.payload : 0;
-      return {
-        ...state,
-        character: {...state.character, health: modifiedCharacterHealth}
-      }
+      return applyAttack(state.character);
     case 'SET_CHARACTER_CARD_STYLE':
       return {
         ...state,
@@ -117,11 +128,31 @@ const reducer = (state = initialState, action) => {
       return weaponApply(state.inventory[3]);
     case 'SET_PILLS':
       return weaponApply(state.inventory[4]);
-    case 'SET_WEAPON_CARD_VISIBILITY':
+    case 'SET_SWORD_CARD_VISIBILITY':
       return {
         ...state,
-        weaponCardStatus: !state.weaponCardStatus
+        swordCardStatus: !state.swordCardStatus
       }
+    case 'SET_SHIELD_CARD_VISIBILITY':
+      return {
+        ...state,
+        shieldCardStatus: !state.shieldCardStatus
+      }
+    case 'SET_BOW_CARD_VISIBILITY':
+      return {
+        ...state,
+        bowCardStatus: !state.bowCardStatus
+      }
+    case 'SET_HELMET_CARD_VISIBILITY':
+      return {
+        ...state,
+        helmetCardStatus: !state.helmetCardStatus
+      }
+    case 'SET_PILLS_CARD_VISIBILITY':
+      return {
+        ...state,
+        pillsCardStatus: !state.pillsCardStatus
+      }                                    
     default:
       return state;
   }
