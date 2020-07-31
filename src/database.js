@@ -1,4 +1,4 @@
-const database = [
+export const databaseMonsters = [
   {
     id: 1,
     name: 'Bret',
@@ -81,4 +81,45 @@ const database = [
   }
 ]
 
-export default database;
+export const databaseInventory = [
+  {
+    id: 1,
+    name: 'Sword',
+    attack: 10,
+    defense: 1,
+    health: 1,
+    magic: 1
+  },
+  {
+    id: 2,
+    name: 'Shield',
+    attack: 1,
+    defense: 10,
+    health: 1,
+    magic: 1
+  },
+  {
+    id: 3,
+    name: 'Bow',
+    attack: 5,
+    defense: 1,
+    health: 1,
+    magic: 5
+  },
+  {
+    id: 4,
+    name: 'Helmet',
+    attack: 1,
+    defense: 1,
+    health: 1,
+    magic: 10
+  },
+  {
+    id: 5,
+    name: 'Pills',
+    attack: 1,
+    defense: 1,
+    health: 10,
+    magic: 1
+  }        
+]

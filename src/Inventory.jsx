@@ -1,5 +1,5 @@
 import React from 'react';
-import {Typography, Button, Grid, Card} from '@material-ui/core';
+import {Button, Grid, Paper, Typography} from '@material-ui/core';
 import {connect} from 'react-redux';
 import {setBattleVisible, setInventoryVisible} from './actions';
 import Image1 from './images/35043557-sword.jpg';
@@ -7,9 +7,9 @@ import Image2 from './images/13103920-aged-metal-shield-isolated-on-white.jpg';
 import Image3 from './images/151337054-bow-and-arrows-black-silhouette-.jpg'
 import Image4 from './images/36278563-medieval-knight-helmet-isolated-on-white-photo-realistic-vector-illustration.jpg'
 import Image5 from './images/140266864-medical-pills-bottle-on-white.jpg'
+import './Inventory.css';
 
-
-const Inventory = ({setBattleVisible, setInventoryVisible}) => {
+const Inventory = ({setBattleVisible, setInventoryVisible, inventory}) => {
 
   const letsSetBattleVisible = () => {
     setBattleVisible();
@@ -20,41 +20,61 @@ const Inventory = ({setBattleVisible, setInventoryVisible}) => {
     width: 150
   }
 
-  const imageCover = (image, alt) => {
+  const textWrapping = (text, fontSize) => {
+    return <Typography align='center' variant={fontSize} color='inherit'>{text}</Typography>
+  }
+
+  const imageCover = (image, alt, item) => {
     return (
-      <Grid item>
-        <Card style={{height: 150}} elevation={5}>
+      <Grid className='weapon' item>
+        <Paper style={{height: 300}} elevation={5}>
           <img style={imageStyle} src={image} alt={alt}></img>
-        </Card>
+          {textWrapping(item.name, 'h6')}
+          {[`Attack: ${item.attack}`, `Defense: ${item.defense}`, `Health: ${item.health}`, `Magic: ${item.magic}`].map((m, idx) => {
+            return (<div key={idx}>{textWrapping(m, 'subtitle1')}</div>)
+          })
+          }          
+        </Paper>
       </Grid>
     )
   }
-
+  console.log(inventory);
   return (
-    <Grid container direction='column' justify="center">
-      <Typography>Inventory</Typography>
+    <Grid container direction='column' justify="center" alignItems='center'>
       <Grid container direction="row" justify="center" spacing={2}>
-        {imageCover(Image1, 'Sword')}
-        {imageCover(Image2, 'Shield')}
-        {imageCover(Image3, 'Bow')}
-        {imageCover(Image4, 'Helmet')}
-        {imageCover(Image5, 'Pills')}
+        {imageCover(Image1, 'Sword', inventory[0])}
+        {imageCover(Image2, 'Shield', inventory[1])}
+        {imageCover(Image3, 'Bow', inventory[2])}
+        {imageCover(Image4, 'Helmet', inventory[3])}
+        {imageCover(Image5, 'Pills', inventory[4])}
       </Grid>
-      <Button
-        variant='contained' 
-        color='primary'
-        onClick={letsSetBattleVisible}
-      >
-        Back to Battle
-      </Button>
+      <Grid item>
+        <Button
+          variant='contained' 
+          color='primary'
+          onClick={letsSetBattleVisible}
+        >
+          Back to Battle
+        </Button>
+      </Grid>
+
     </Grid>
   )
 }
 
+const mapStateToProps = state => {
+
+  const {inventory} = state;
+
+  return {
+    inventory
+  }
+}
+
 const mapDispatchToProps = dispatch => ({
   setBattleVisible: () => dispatch(setBattleVisible()),
-  setInventoryVisible: () => dispatch(setInventoryVisible()),
+  setInventoryVisible: () => dispatch(setInventoryVisible())
 })
 
 
-export default connect(null, mapDispatchToProps)(Inventory);
+export default connect(mapStateToProps, mapDispatchToProps)(Inventory);

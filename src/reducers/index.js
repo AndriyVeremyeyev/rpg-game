@@ -10,7 +10,8 @@ const initialState = {
   enemyCard: null,
   battlePage: false,
   inventoryPage: false,
-  monstersMenuPage: false
+  monstersMenuPage: false,
+  inventory: null,
 }
 
 const reducer = (state = initialState, action) => {
@@ -88,7 +89,21 @@ const reducer = (state = initialState, action) => {
         ...state,
         monstersMenuPage: !state.monstersMenuPage
       }          
-      
+    case 'SET_INVENTORY':
+      return {
+        ...state,
+        inventory: action.payload
+      }
+    case 'SET_SWORD':
+      const sword = state.inventory[0];
+      const swordImprovedAttack = state.character.attack+sword.attack;
+      const swordImprovedDefense = state.character.attack+sword.defense;
+      const swordImprovedMagic = state.character.attack+sword.magic;
+      const swordImprovedHealth = state.character.attack+sword.health;
+      return {
+        ...state,
+        character: {...state.character, attack: swordImprovedAttack, defense: swordImprovedDefense, magic: swordImprovedMagic, health: swordImprovedHealth}
+      }
     default:
       return state
   }

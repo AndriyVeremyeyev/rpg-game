@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Grid, Paper, Typography} from '@material-ui/core/';
-import database from './database';
+import {databaseMonsters} from './database';
 import './ChooseMonsters.css';
 import {connect} from 'react-redux';
 import {
@@ -17,7 +17,7 @@ class ChooseMonsters extends Component {
 
   componentDidMount = () => {
     const {setRandomMonsters, setSubtitle, setLegend} = this.props;
-    const shuffled = database.sort(() => 0.5 - Math.random()).slice(0, 4);
+    const shuffled = databaseMonsters.sort(() => 0.5 - Math.random()).slice(0, 4);
     setRandomMonsters(shuffled);
     setSubtitle('Monsters Menu')
     setLegend('Choose your character')

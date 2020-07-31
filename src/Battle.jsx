@@ -32,9 +32,8 @@ class Battle extends Component {
       setLegend('This is Battle Mode')
     }
 
-    const {setLegend, setSubtitle} = this.props;
+    const {setLegend} = this.props;
     setLegend(null);
-    setSubtitle('Battle Mode');
     setTimeout(firstText, 1000);
     setTimeout(this.allowApplyAttack, 2500);
   }

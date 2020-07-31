@@ -1,4 +1,4 @@
-.item {
+.weapon {
   display: inline-block;
   vertical-align: middle;
   -webkit-transform: perspective(1px) translateZ(0);
@@ -10,7 +10,7 @@
   transition-property: box-shadow, transform;
   cursor: pointer;
 }
-.item:hover, .item:focus, .item:active {
+.weapon:hover, .weapon:focus, .weapon:active {
   box-shadow: 0 10px 10px -10px rgba(0, 0, 0, 0);
   -webkit-transform: scale(1.1);
   transform: scale(1.1);

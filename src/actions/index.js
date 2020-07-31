@@ -90,3 +90,16 @@ export const setMonstersMenuVisible = () => {
     type: 'SET_MONSTERS_MENU_VISIBLE'
   }
 }
+
+export const setInventory = (inventory) => {
+  return {
+    type: 'SET_INVENTORY',
+    payload: inventory
+  }
+}
+
+export const setSword = () => {
+  return {
+    type: 'SET_SWORD'
+  }
+}

@@ -5,11 +5,12 @@ import ChooseMonsters from './ChooseMonsters';
 import Battle from './Battle';
 import Header from './Header';
 import EndGame from './EndGame';
-import {setSubtitle} from './actions'
+import {setSubtitle, setLegend, setInventory} from './actions';
+import {databaseInventory} from './database';
 import Inventory from './Inventory';
 
 
-const GameController = ({startGame, legend, setSubtitle, battlePage, inventoryPage, monstersMenuPage}) => {
+const GameController = ({startGame, legend, setSubtitle, battlePage, inventoryPage, monstersMenuPage, setInventory}) => {
 
   if (!startGame) {
     return <StartGame/>
@@ -24,9 +25,12 @@ const GameController = ({startGame, legend, setSubtitle, battlePage, inventoryPa
       return <EndGame/>
     }
     if (battlePage){
+      setSubtitle('Battle Mode');
       return <Battle/>
     }
     if (inventoryPage){
+      setSubtitle('Inventory');
+      setInventory(databaseInventory);
       return <Inventory/>
     }
     
@@ -54,6 +58,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => ({
   setSubtitle: (text) => dispatch(setSubtitle(text)),
+  setLegend: (text) => dispatch(setLegend(text)),
+  setInventory: (inventory) => dispatch(setInventory(inventory))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(GameController);
