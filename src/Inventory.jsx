@@ -6,7 +6,7 @@ import Image1 from './images/35043557-sword.jpg';
 import Image2 from './images/13103920-aged-metal-shield-isolated-on-white.jpg';
 import Image3 from './images/151337054-bow-and-arrows-black-silhouette-.jpg'
 import Image4 from './images/36278563-medieval-knight-helmet-isolated-on-white-photo-realistic-vector-illustration.jpg'
-import Image5 from './images/151337054-bow-and-arrows-black-silhouette-.jpg'
+import Image5 from './images/140266864-medical-pills-bottle-on-white.jpg'
 
 
 const Inventory = ({setBattleVisible, setInventoryVisible}) => {

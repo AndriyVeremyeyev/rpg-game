@@ -9,10 +9,7 @@ import {setSubtitle} from './actions'
 import Inventory from './Inventory';
 
 
-const GameController = ({startGame, character, enemy, legend, setSubtitle, battlePage, inventoryPage, monstersMenuPage}) => {
-
-  console.log(monstersMenuPage);
-  console.log(inventoryPage);
+const GameController = ({startGame, legend, setSubtitle, battlePage, inventoryPage, monstersMenuPage}) => {
 
   if (!startGame) {
     return <StartGame/>
@@ -45,11 +42,9 @@ const GameController = ({startGame, character, enemy, legend, setSubtitle, battl
 }
 
 const mapStateToProps = state => {
-  const {startGame, character, enemy, legend, battlePage, inventoryPage, monstersMenuPage} = state;
+  const {startGame, legend, battlePage, inventoryPage, monstersMenuPage} = state;
   return {
     startGame,
-    character,
-    enemy,
     legend,
     battlePage,
     inventoryPage,

@@ -16,7 +16,7 @@ import {
 class ChooseMonsters extends Component {
 
   componentDidMount = () => {
-    const {setRandomMonsters, setSubtitle, setLegend} = this.props
+    const {setRandomMonsters, setSubtitle, setLegend} = this.props;
     const shuffled = database.sort(() => 0.5 - Math.random()).slice(0, 4);
     setRandomMonsters(shuffled);
     setSubtitle('Monsters Menu')
