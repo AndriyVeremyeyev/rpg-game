@@ -82,7 +82,7 @@ const reducer = (state = initialState, action) => {
     case 'SET_INVENTORY_BUTTON_STATUS' :
       return {
         ...state,
-        inventoryButton: !state.inventoryButton
+        inventoryButton: action.payload
       }      
     case 'SET_SUBTITLE' :
       return {

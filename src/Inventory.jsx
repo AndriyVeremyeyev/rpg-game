@@ -42,14 +42,14 @@ const Inventory = ({
   bowCardStatus,
   helmetCardStatus,
   pillsCardStatus,
-  setInventoryButtonStatus
+  setInventoryButtonStatus,
 }) => {
 
   const clickOnWeapon = (setWeapon, setCardVisibility) => {
     if (setWeapon){
       setWeapon();
       setCardVisibility();
-      setInventoryButtonStatus();
+      setInventoryButtonStatus(true);
     }
     setInventoryVisible();
     setBattleVisible();
@@ -128,7 +128,7 @@ const mapDispatchToProps = dispatch => ({
   setBowCardVisibility: () => dispatch(setBowCardVisibility()),
   setHelmetCardVisibility: () => dispatch(setHelmetCardVisibility()),
   setPillsCardVisibility: () => dispatch(setPillsCardVisibility()),
-  setInventoryButtonStatus: () => dispatch(setInventoryButtonStatus())
+  setInventoryButtonStatus: (status) => dispatch(setInventoryButtonStatus(status))
 })
 
 

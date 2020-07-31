@@ -22,7 +22,7 @@ class Battle extends Component {
     if (battlePageOpen < 2){
       setLegend('Buttons became active now')
       setAttackButtonsStatus();
-      setInventoryButtonStatus();
+      setInventoryButtonStatus(false);
       const secondText = () => {
         setLegend('Make your choice from menu')
       }
@@ -74,6 +74,7 @@ class Battle extends Component {
       applyEnemyAttack,
       setCharacterCardStyle, 
       setAttackButtonsStatus,
+      setInventoryButtonStatus,
       setLegend,
       setEnemyCardStyle,
       character,
@@ -103,6 +104,7 @@ class Battle extends Component {
       }
       if (monster.name === enemy.name && character.health - attackValue > 0){
         setAttackButtonsStatus();
+        setInventoryButtonStatus(false);
       }
     }
     const forthStep = () => {
@@ -117,6 +119,7 @@ class Battle extends Component {
       applyAttack(attackValue);
       setEnemyCardStyle('monsterCard');      
       setAttackButtonsStatus();
+      setInventoryButtonStatus(true);
       if (attackValue === character.attack){
         setLegend('You made standard attack');
       } else {
@@ -124,7 +127,6 @@ class Battle extends Component {
       }
       thirdTextWin = 'Enemy health reached zero';
       thirdTextContinue = 'Now it\'s turn of your enemy';
-      console.log(enemy.health - attackValue)
       if (enemy.health - attackValue <= 0){
         setTimeout(() => thirdStep(thirdTextWin), 3000)
         setTimeout(forthStep, 4500)
@@ -160,6 +162,7 @@ class Battle extends Component {
   render(){
 
     const {character, enemy, attackButtons, inventoryButton, characterCard, enemyCard} = this.props;
+    console.log(inventoryButton);
     return (
       <React.Fragment>
         <Grid container justify='space-around'>
@@ -233,7 +236,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => ({
   applyAttack: (value) => dispatch(applyAttack(value)),
   setAttackButtonsStatus: () => dispatch(setAttackButtonsStatus()),
-  setInventoryButtonStatus: () => dispatch(setInventoryButtonStatus()),
+  setInventoryButtonStatus: (status) => dispatch(setInventoryButtonStatus(status)),
   setSubtitle: (text) => dispatch(setSubtitle(text)),
   setLegend: (text) => dispatch(setLegend(text)),
   applyEnemyAttack: (randomValue) => dispatch(applyEnemyAttack(randomValue)),

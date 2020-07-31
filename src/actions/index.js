@@ -38,9 +38,10 @@ export const setAttackButtonsStatus = () => {
   }
 }
 
-export const setInventoryButtonStatus = () => {
+export const setInventoryButtonStatus = (status) => {
   return {
-    type: 'SET_INVENTORY_BUTTON_STATUS'
+    type: 'SET_INVENTORY_BUTTON_STATUS',
+    payload: status
   }
 }
 
