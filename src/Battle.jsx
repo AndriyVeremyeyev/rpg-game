@@ -11,7 +11,8 @@ import {
   setCharacterCardStyle,
   setEnemyCardStyle,
   setInventoryVisible,
-  setBattleVisible
+  setBattleVisible,
+  setRoundTitle
 } from './actions';
 import './Battle.css';
 
@@ -31,7 +32,11 @@ class Battle extends Component {
   }
 
   componentDidMount = () => {
-    const {setLegend, battlePageOpen} = this.props;
+    const {setLegend, battlePageOpen, defeatedEnemies, setRoundTitle} = this.props;
+    if (defeatedEnemies.length < 1){
+      setRoundTitle('Round 1');
+    }
+    console.log(defeatedEnemies);
     if (battlePageOpen < 2){
       const firstText = () => {
         setLegend('This is Battle Mode')
@@ -162,7 +167,6 @@ class Battle extends Component {
   render(){
 
     const {character, enemy, attackButtons, inventoryButton, characterCard, enemyCard} = this.props;
-    console.log(inventoryButton);
     return (
       <React.Fragment>
         <Grid container justify='space-around'>
@@ -218,7 +222,7 @@ class Battle extends Component {
 
 const mapStateToProps = state => {
 
-  const {character, enemy, textOneVisible, textTwoVisible, attackButtons, inventoryButton, characterCard, enemyCard, battlePageOpen} = state;
+  const {character, enemy, textOneVisible, textTwoVisible, attackButtons, inventoryButton, characterCard, enemyCard, battlePageOpen, defeatedEnemies} = state;
 
   return {
     character,
@@ -229,7 +233,8 @@ const mapStateToProps = state => {
     inventoryButton,
     characterCard,
     enemyCard,
-    battlePageOpen
+    battlePageOpen,
+    defeatedEnemies
   }
 }
 
@@ -243,7 +248,8 @@ const mapDispatchToProps = dispatch => ({
   setCharacterCardStyle: (style) => dispatch(setCharacterCardStyle(style)),
   setEnemyCardStyle: (style) => dispatch(setEnemyCardStyle(style)),
   setInventoryVisible: () => dispatch(setInventoryVisible()),
-  setBattleVisible: () => dispatch(setBattleVisible())
+  setBattleVisible: () => dispatch(setBattleVisible()),
+  setRoundTitle: (text) => dispatch(setRoundTitle(text))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Battle);;

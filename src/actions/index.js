@@ -164,3 +164,17 @@ export const setPillsCardVisibility = () => {
     type: 'SET_PILLS_CARD_VISIBILITY'
   }
 }
+
+export const setRoundTitle = (text) => {
+  return {
+    type: 'SET_ROUND_TITLE',
+    payload: text 
+  }
+}
+
+export const setDefeatedEnemy = (monster) => {
+  return {
+    type: 'SET_DEFEATED_ENEMY',
+    payload: monster
+  }
+}

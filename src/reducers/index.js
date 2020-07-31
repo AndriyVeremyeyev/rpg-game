@@ -18,7 +18,9 @@ const initialState = {
   bowCardStatus: false,
   helmetCardStatus: false,
   pillsCardStatus: false,
-  battlePageOpen: 0
+  battlePageOpen: 0,
+  roundTitle: null,
+  defeatedEnemies: []
 }
 
 const reducer = (state = initialState, action) => {
@@ -161,7 +163,19 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         pillsCardStatus: !state.pillsCardStatus
-      }                                    
+      }
+    case 'SET_ROUND_TITLE':
+      return{
+        ...state,
+        roundTitle: action.payload
+      }
+    case 'SET_DEFEATED_ENEMY':
+      const defeatedEnemiesUpdate = state.defeatedEnemies;
+      defeatedEnemiesUpdate.push(action.payload);
+      return{
+        ...state,
+        defeatedEnemies: defeatedEnemiesUpdate
+      }                                 
     default:
       return state;
   }
