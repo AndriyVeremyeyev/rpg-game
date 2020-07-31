@@ -97,9 +97,9 @@ const reducer = (state = initialState, action) => {
     case 'SET_SWORD':
       const sword = state.inventory[0];
       const swordImprovedAttack = state.character.attack+sword.attack;
-      const swordImprovedDefense = state.character.attack+sword.defense;
-      const swordImprovedMagic = state.character.attack+sword.magic;
-      const swordImprovedHealth = state.character.attack+sword.health;
+      const swordImprovedDefense = state.character.defense+sword.defense;
+      const swordImprovedMagic = state.character.magic+sword.magic;
+      const swordImprovedHealth = state.character.health+sword.health;
       return {
         ...state,
         character: {...state.character, attack: swordImprovedAttack, defense: swordImprovedDefense, magic: swordImprovedMagic, health: swordImprovedHealth}
