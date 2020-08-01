@@ -178,3 +178,16 @@ export const setDefeatedEnemy = (monster) => {
     payload: monster
   }
 }
+
+export const setEndGamePageStatus = () => {
+  return {
+    type: 'SET_END_GAME_PAGE_STATUS'
+  }
+}
+
+export const setPageStatus = (page) => {
+  return {
+    type: 'SET_PAGE_STATUS',
+    payload: page
+  }
+}

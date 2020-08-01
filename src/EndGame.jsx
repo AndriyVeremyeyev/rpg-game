@@ -3,6 +3,12 @@ import {Grid, Typography, Button} from '@material-ui/core';
 
 const EndGame = () => {
 
+
+  const playAgain = () => {
+
+  }
+
+
   return(
     <div>
       <Grid container direction='column' alignItems='center'>
@@ -21,5 +27,7 @@ const EndGame = () => {
     </div>
   )
 }
+
+
 
 export default EndGame;

@@ -5,12 +5,12 @@ import ChooseMonsters from './ChooseMonsters';
 import Battle from './Battle';
 import Header from './Header';
 import EndGame from './EndGame';
-import {setSubtitle, setLegend, setInventory} from './actions';
+import {setSubtitle, setInventory} from './actions';
 import {databaseInventory} from './database';
 import Inventory from './Inventory';
 
 
-const GameController = ({startGame, legend, setSubtitle, battlePage, inventoryPage, monstersMenuPage, setInventory}) => {
+const GameController = ({startGame, setSubtitle, setInventory, pageStatus}) => {
 
   if (!startGame) {
     return <StartGame/>
@@ -18,23 +18,26 @@ const GameController = ({startGame, legend, setSubtitle, battlePage, inventoryPa
 
   const mode = () => {
 
-    if (monstersMenuPage){
-      return <ChooseMonsters/>
-    } else if (legend === 'You loose') {
-      setSubtitle('End of Game')
-      return <EndGame/>
+    switch (pageStatus){
+      case 'chooseMonsters':
+        return <ChooseMonsters/>
+      case 'battleMode':{
+        setSubtitle('Battle Mode');
+        return <Battle/>
+      }
+      case 'inventory':
+        setSubtitle('Inventory');
+        setInventory(databaseInventory);
+        return <Inventory/>
+      case 'endGame':
+        setSubtitle('End of Game')
+        return <EndGame/>
+      default:
+        return <StartGame/>
     }
-    if (battlePage){
-      setSubtitle('Battle Mode');
-      return <Battle/>
-    }
-    if (inventoryPage){
-      setSubtitle('Inventory');
-      setInventory(databaseInventory);
-      return <Inventory/>
-    }
-    
   }
+
+  console.log(pageStatus);
 
   return (
     <React.Fragment>
@@ -46,19 +49,15 @@ const GameController = ({startGame, legend, setSubtitle, battlePage, inventoryPa
 }
 
 const mapStateToProps = state => {
-  const {startGame, legend, battlePage, inventoryPage, monstersMenuPage} = state;
+  const {startGame, pageStatus} = state;
   return {
     startGame,
-    legend,
-    battlePage,
-    inventoryPage,
-    monstersMenuPage
+    pageStatus
   }
 }
 
 const mapDispatchToProps = dispatch => ({
   setSubtitle: (text) => dispatch(setSubtitle(text)),
-  setLegend: (text) => dispatch(setLegend(text)),
   setInventory: (inventory) => dispatch(setInventory(inventory))
 })
 

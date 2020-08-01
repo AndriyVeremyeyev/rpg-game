@@ -9,18 +9,23 @@ import {
   setEnemy,
   setSubtitle,
   setLegend,
-  setBattleVisible,
-  setMonstersMenuVisible
+  setPageStatus
 } from './actions';
 
 class ChooseMonsters extends Component {
 
   componentDidMount = () => {
-    const {setRandomMonsters, setSubtitle, setLegend} = this.props;
-    const shuffled = databaseMonsters.sort(() => 0.5 - Math.random()).slice(0, 4);
-    setRandomMonsters(shuffled);
+    const {setRandomMonsters, setSubtitle, setLegend, defeatedEnemies} = this.props;
+    if (defeatedEnemies.length < 1){
+      const shuffled = databaseMonsters.sort(() => 0.5 - Math.random()).slice(0, 4);
+      setRandomMonsters(shuffled);
+      setLegend('Choose your character')
+    } else if (defeatedEnemies.length < 2){
+      setLegend('Choose your enemy for 2 round')
+    } else if (defeatedEnemies.length < 3){
+      setLegend('Choose your enemy for 3 round')
+    }
     setSubtitle('Monsters Menu')
-    setLegend('Choose your character')
   }
   
   gridOnClick = (id) => {
@@ -31,8 +36,7 @@ class ChooseMonsters extends Component {
       setEnemy, 
       setRandomMonsters, 
       setLegend, 
-      setMonstersMenuVisible, 
-      setBattleVisible
+      setPageStatus
     } = this.props;
 
     if (!this.props.character){
@@ -42,8 +46,7 @@ class ChooseMonsters extends Component {
     } else {
       setEnemy(monster[0]);
       setRandomMonsters(otherMonsters);
-      setMonstersMenuVisible();
-      setBattleVisible();
+      setPageStatus('battleMode');
     }
   }
 
@@ -74,12 +77,13 @@ class ChooseMonsters extends Component {
 
 const mapStateToProps = state => {
 
-  const {randomMonsters, character, enemy} = state;
+  const {randomMonsters, character, enemy, defeatedEnemies} = state;
 
   return {
     randomMonsters,
     character,
-    enemy
+    enemy,
+    defeatedEnemies
   }
 }
 
@@ -89,8 +93,7 @@ const mapDispatchToProps = dispatch => ({
   setEnemy: (enemy) => dispatch(setEnemy(enemy)),
   setSubtitle: (text) => dispatch(setSubtitle(text)),
   setLegend: (text) => dispatch(setLegend(text)),
-  setBattleVisible: () => dispatch(setBattleVisible()),
-  setMonstersMenuVisible: () => dispatch(setMonstersMenuVisible())
+  setPageStatus: (page) => dispatch(setPageStatus(page))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(ChooseMonsters);

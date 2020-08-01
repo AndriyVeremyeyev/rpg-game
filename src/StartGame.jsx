@@ -1,13 +1,13 @@
 import React from 'react';
 import {Grid, Typography, Button} from '@material-ui/core/';
 import {connect} from 'react-redux';
-import { setStartGame, setMonstersMenuVisible } from './actions';
+import { setStartGame, setPageStatus } from './actions';
 
-const StartGame = ({setStartGame, setMonstersMenuVisible}) => {
+const StartGame = ({setStartGame, setPageStatus}) => {
 
   const letStartGame = () => {
     setStartGame();
-    setMonstersMenuVisible();
+    setPageStatus('chooseMonsters');
   }
 
   return (
@@ -22,7 +22,7 @@ const StartGame = ({setStartGame, setMonstersMenuVisible}) => {
 
 const mapDispatchToProps = dispatch => ({
   setStartGame: () => dispatch(setStartGame()),
-  setMonstersMenuVisible: () => dispatch(setMonstersMenuVisible()), 
+  setPageStatus: (page) => dispatch(setPageStatus(page)), 
 })
 
 export default connect(null, mapDispatchToProps)(StartGame);

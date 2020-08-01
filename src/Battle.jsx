@@ -10,9 +10,9 @@ import {
   applyEnemyAttack,
   setCharacterCardStyle,
   setEnemyCardStyle,
-  setInventoryVisible,
-  setBattleVisible,
-  setRoundTitle
+  setRoundTitle,
+  setDefeatedEnemy,
+  setPageStatus
 } from './actions';
 import './Battle.css';
 
@@ -35,8 +35,11 @@ class Battle extends Component {
     const {setLegend, battlePageOpen, defeatedEnemies, setRoundTitle} = this.props;
     if (defeatedEnemies.length < 1){
       setRoundTitle('Round 1');
+    } else if (defeatedEnemies.length < 2){
+      setRoundTitle('Round 2');
+    } else if (defeatedEnemies.length < 3){
+      setRoundTitle('Round 3');
     }
-    console.log(defeatedEnemies);
     if (battlePageOpen < 2){
       const firstText = () => {
         setLegend('This is Battle Mode')
@@ -83,7 +86,9 @@ class Battle extends Component {
       setLegend,
       setEnemyCardStyle,
       character,
-      enemy
+      enemy,
+      setDefeatedEnemy,
+      setPageStatus
     } = this.props;
 
     if (n > 2){
@@ -98,6 +103,7 @@ class Battle extends Component {
         setLegend(`Enemy health damage is ${attackValue}`);
         setEnemyCardStyle(null);
       } else {
+        console.log(attackValue);
         setLegend(`Your health damage is ${attackValue}`);
         setCharacterCardStyle(null);
       }
@@ -105,7 +111,7 @@ class Battle extends Component {
     const thirdStep = (text) => {
       setLegend(text);
       if (monster.name === character.name && enemy.health - attackValue > 0){
-        this.attack(50, enemy, n+1);
+        this.attack(this.randomAttackValue(), enemy, n+1);
       }
       if (monster.name === enemy.name && character.health - attackValue > 0){
         setAttackButtonsStatus();
@@ -115,8 +121,12 @@ class Battle extends Component {
     const forthStep = () => {
       if (monster.name === character.name){
         setLegend('You win')
+        setDefeatedEnemy(enemy);
+        setPageStatus('chooseMonsters')
+
       } else {
         setLegend('You loose')
+        setPageStatus('endGame')
       }
     }
     setTimeout(secondStep, 1500);
@@ -153,17 +163,6 @@ class Battle extends Component {
     }
   }
 
-  letsSetInventoryVisible = () => {
-
-    const {
-      setInventoryVisible,
-      setBattleVisible,
-    } = this.props;
-
-    setInventoryVisible();
-    setBattleVisible();
-  }
-
   render(){
 
     const {character, enemy, attackButtons, inventoryButton, characterCard, enemyCard} = this.props;
@@ -188,7 +187,7 @@ class Battle extends Component {
             <Button 
               variant='contained' 
               color='primary'
-              onClick={() => this.attack(character.attack, character, 1)}
+              onClick={() => this.attack(100, character, 1)}
               disabled={attackButtons}
             >
               Standard Attack
@@ -209,7 +208,7 @@ class Battle extends Component {
               variant='contained' 
               color='primary'
               disabled={inventoryButton}
-              onClick={this.letsSetInventoryVisible}
+              onClick={() => this.props.setPageStatus('inventory')}
             >
               Store
             </Button>
@@ -222,13 +221,11 @@ class Battle extends Component {
 
 const mapStateToProps = state => {
 
-  const {character, enemy, textOneVisible, textTwoVisible, attackButtons, inventoryButton, characterCard, enemyCard, battlePageOpen, defeatedEnemies} = state;
+  const {character, enemy, attackButtons, inventoryButton, characterCard, enemyCard, battlePageOpen, defeatedEnemies} = state;
 
   return {
     character,
     enemy,
-    textOneVisible,
-    textTwoVisible,
     attackButtons,
     inventoryButton,
     characterCard,
@@ -247,9 +244,9 @@ const mapDispatchToProps = dispatch => ({
   applyEnemyAttack: (randomValue) => dispatch(applyEnemyAttack(randomValue)),
   setCharacterCardStyle: (style) => dispatch(setCharacterCardStyle(style)),
   setEnemyCardStyle: (style) => dispatch(setEnemyCardStyle(style)),
-  setInventoryVisible: () => dispatch(setInventoryVisible()),
-  setBattleVisible: () => dispatch(setBattleVisible()),
-  setRoundTitle: (text) => dispatch(setRoundTitle(text))
+  setRoundTitle: (text) => dispatch(setRoundTitle(text)),
+  setDefeatedEnemy: (monster) => dispatch(setDefeatedEnemy(monster)),
+  setPageStatus: (page) => dispatch(setPageStatus(page))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Battle);;

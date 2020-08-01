@@ -9,9 +9,6 @@ const initialState = {
   legend: null,
   characterCard: null,
   enemyCard: null,
-  battlePage: false,
-  inventoryPage: false,
-  monstersMenuPage: false,
   inventory: null,
   swordCardStatus: false,
   shieldCardStatus: false,
@@ -20,7 +17,8 @@ const initialState = {
   pillsCardStatus: false,
   battlePageOpen: 0,
   roundTitle: null,
-  defeatedEnemies: []
+  defeatedEnemies: [],
+  pageStatus: null
 }
 
 const reducer = (state = initialState, action) => {
@@ -107,23 +105,7 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         enemyCard: action.payload
-      }
-    case 'SET_BATTLE_VISIBLE':
-      return {
-        ...state,
-        battlePage: !state.battlePage,
-        battlePageOpen: state.battlePageOpen + 1
-      }
-    case 'SET_INVENTORY_VISIBLE':
-      return {
-        ...state,
-        inventoryPage: !state.inventoryPage
-      }
-    case 'SET_MONSTERS_MENU_VISIBLE':
-      return {
-        ...state,
-        monstersMenuPage: !state.monstersMenuPage
-      }          
+      }      
     case 'SET_INVENTORY':
       return {
         ...state,
@@ -175,7 +157,12 @@ const reducer = (state = initialState, action) => {
       return{
         ...state,
         defeatedEnemies: defeatedEnemiesUpdate
-      }                                 
+      }
+    case 'SET_PAGE_STATUS':
+      return{
+        ...state,
+        pageStatus: action.payload
+      }           
     default:
       return state;
   }

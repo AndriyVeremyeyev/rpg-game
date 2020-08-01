@@ -2,8 +2,6 @@ import React from 'react';
 import {Button, Grid, Paper, Typography} from '@material-ui/core';
 import {connect} from 'react-redux';
 import {
-  setBattleVisible, 
-  setInventoryVisible, 
   setSword,
   setShield,
   setBow,
@@ -14,7 +12,8 @@ import {
   setBowCardVisibility,
   setHelmetCardVisibility,
   setPillsCardVisibility,
-  setInventoryButtonStatus
+  setInventoryButtonStatus,
+  setPageStatus
 } from './actions';
 import Image1 from './images/35043557-sword.jpg';
 import Image2 from './images/13103920-aged-metal-shield-isolated-on-white.jpg';
@@ -24,8 +23,6 @@ import Image5 from './images/140266864-medical-pills-bottle-on-white.jpg'
 import './Inventory.css';
 
 const Inventory = ({
-  setBattleVisible, 
-  setInventoryVisible, 
   inventory, 
   setSword, 
   setShield, 
@@ -43,6 +40,7 @@ const Inventory = ({
   helmetCardStatus,
   pillsCardStatus,
   setInventoryButtonStatus,
+  setPageStatus
 }) => {
 
   const clickOnWeapon = (setWeapon, setCardVisibility) => {
@@ -51,8 +49,7 @@ const Inventory = ({
       setCardVisibility();
       setInventoryButtonStatus(true);
     }
-    setInventoryVisible();
-    setBattleVisible();
+    setPageStatus('battleMode')
   }
 
   const textWrapping = (text, fontSize) => {
@@ -87,7 +84,7 @@ const Inventory = ({
         {imageCover(Image4, 'Helmet', inventory[3], () => clickOnWeapon(setHelmet, setHelmetCardVisibility), helmetCardStatus)}
         {imageCover(Image5, 'Pills', inventory[4], () => clickOnWeapon(setPills, setPillsCardVisibility), pillsCardStatus)}
       </Grid>
-      <Grid item>
+      <Grid item style={{marginTop: 50}}>
         <Button
           variant='contained' 
           color='primary'
@@ -116,8 +113,6 @@ const mapStateToProps = state => {
 }
 
 const mapDispatchToProps = dispatch => ({
-  setBattleVisible: () => dispatch(setBattleVisible()),
-  setInventoryVisible: () => dispatch(setInventoryVisible()),
   setSword: () => dispatch(setSword()),
   setShield: () => dispatch(setShield()),
   setBow: () => dispatch(setBow()),
@@ -128,7 +123,8 @@ const mapDispatchToProps = dispatch => ({
   setBowCardVisibility: () => dispatch(setBowCardVisibility()),
   setHelmetCardVisibility: () => dispatch(setHelmetCardVisibility()),
   setPillsCardVisibility: () => dispatch(setPillsCardVisibility()),
-  setInventoryButtonStatus: (status) => dispatch(setInventoryButtonStatus(status))
+  setInventoryButtonStatus: (status) => dispatch(setInventoryButtonStatus(status)),
+  setPageStatus: (page) => dispatch(setPageStatus(page))
 })
 
 
