@@ -1,23 +1,17 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import StartGame from './StartGame';
-import ChooseMonsters from './ChooseMonsters';
 import Battle from './Battle';
-import Header from './Header';
+import ChooseMonsters from './ChooseMonsters';
 import EndGame from './EndGame';
+import Inventory from './Inventory';
+import Header from './Header';
+import StartGame from './StartGame';
 import {setSubtitle, setInventory} from './actions';
 import {databaseInventory} from './database';
-import Inventory from './Inventory';
 
-
-const GameController = ({startGame, setSubtitle, setInventory, pageStatus, randomMonsters}) => {
-
-  if (!startGame) {
-    return <StartGame/>
-  }
+const GameController = ({setSubtitle, setInventory, pageStatus, randomMonsters}) => {
 
   const mode = () => {
-
     switch (pageStatus){
       case 'chooseMonsters':
         return <ChooseMonsters/>
@@ -49,9 +43,8 @@ const GameController = ({startGame, setSubtitle, setInventory, pageStatus, rando
 }
 
 const mapStateToProps = state => {
-  const {startGame, pageStatus, randomMonsters} = state;
+  const {pageStatus, randomMonsters} = state;
   return {
-    startGame,
     pageStatus,
     randomMonsters
   }

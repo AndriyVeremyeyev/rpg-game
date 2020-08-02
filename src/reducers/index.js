@@ -1,5 +1,4 @@
 const initialState = {
-  startGame: false,
   randomMonsters: [],
   character: null,
   enemy: null,
@@ -47,11 +46,6 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         enemy: action.payload
-      }
-    case 'SET_START_GAME':
-      return {
-        ...state,
-        startGame: true
       }
     case 'APPLY_ATTACK':
       return applyAttack(state.enemy);

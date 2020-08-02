@@ -4,6 +4,18 @@ import { Typography, Grid } from '@material-ui/core';
 
 const Header = ({subTitle, legend, roundTitle, pageStatus}) => {
 
+  const headerView = () => {
+    return (
+      <Grid style={{marginTop: 50}} container direction='column' alignItems='center'>
+        <Typography variant='h3'>{subTitle}</Typography>
+        {roundTitleView()}
+        <div style={{borderStyle: 'solid', borderWidth: 1, height: 50, width: 300, marginTop: 20, marginBottom: 20, paddingTop: 15}}>
+        <Typography style={{textAlign: 'center'}} variant='subtitle1'>{legend}</Typography>
+        </div>      
+      </Grid>
+    )
+  }
+
   const roundTitleView = () => {
     if (pageStatus === 'battleMode'){
       return (
@@ -13,13 +25,9 @@ const Header = ({subTitle, legend, roundTitle, pageStatus}) => {
   }
 
   return (
-    <Grid style={{marginTop: 50}} container direction='column' alignItems='center'>
-      <Typography variant='h3'>{subTitle}</Typography>
-      {roundTitleView()}
-      <div style={{borderStyle: 'solid', borderWidth: 1, height: 50, width: 300, marginTop: 20, marginBottom: 20, paddingTop: 15}}>
-      <Typography style={{textAlign: 'center'}} variant='subtitle1'>{legend}</Typography>
-      </div>      
-    </Grid>
+    <React.Fragment>
+      {pageStatus === null ? null : headerView()}
+    </React.Fragment>    
   )
 }
 

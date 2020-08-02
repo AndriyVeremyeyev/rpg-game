@@ -19,12 +19,6 @@ export const setEnemy = (enemy) => {
   }
 }
 
-export const setStartGame = () => {
-  return {
-    type: 'SET_START_GAME'
-  }
-}
-
 export const applyAttack = (value) => {
   return {
     type: 'APPLY_ATTACK',
