@@ -2,7 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import { Typography, Grid } from '@material-ui/core';
 
-const Header = ({subTitle, legend, roundTitle, pageStatus, inventory}) => {
+const Header = ({subTitle, legend, roundTitle, pageStatus}) => {
 
   const roundTitleView = () => {
     if (pageStatus === 'battleMode'){
@@ -11,8 +11,6 @@ const Header = ({subTitle, legend, roundTitle, pageStatus, inventory}) => {
       )
     }
   }
-
-  console.log(inventory);
 
   return (
     <Grid style={{marginTop: 50}} container direction='column' alignItems='center'>
@@ -27,14 +25,13 @@ const Header = ({subTitle, legend, roundTitle, pageStatus, inventory}) => {
 
 const mapStateToProps = state => {
 
-  const {subTitle, legend, roundTitle, pageStatus, inventory} = state;
+  const {subTitle, legend, roundTitle, pageStatus} = state;
 
   return {
     subTitle,
     legend,
     roundTitle,
     pageStatus,
-    inventory
   }
 }
 

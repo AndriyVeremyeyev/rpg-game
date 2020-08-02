@@ -94,66 +94,6 @@ export const setInventory = (inventory) => {
   }
 }
 
-export const setSword = () => {
-  return {
-    type: 'SET_SWORD'
-  }
-}
-
-export const setShield = () => {
-  return {
-    type: 'SET_SHIELD'
-  }
-}
-
-export const setBow = () => {
-  return {
-    type: 'SET_BOW'
-  }
-}
-
-export const setHelmet = () => {
-  return {
-    type: 'SET_HELMET'
-  }
-}
-
-export const setPills = () => {
-  return {
-    type: 'SET_PILLS'
-  }
-}
-
-export const setSwordCardVisibility = () => {
-  return {
-    type: 'SET_SWORD_CARD_VISIBILITY'
-  }
-}
-
-export const setShieldCardVisibility = () => {
-  return {
-    type: 'SET_SHIELD_CARD_VISIBILITY'
-  }
-}
-
-export const setBowCardVisibility = () => {
-  return {
-    type: 'SET_BOW_CARD_VISIBILITY'
-  }
-}
-
-export const setHelmetCardVisibility = () => {
-  return {
-    type: 'SET_HELMET_CARD_VISIBILITY'
-  }
-}
-
-export const setPillsCardVisibility = () => {
-  return {
-    type: 'SET_PILLS_CARD_VISIBILITY'
-  }
-}
-
 export const setRoundTitle = (text) => {
   return {
     type: 'SET_ROUND_TITLE',

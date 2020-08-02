@@ -10,11 +10,6 @@ const initialState = {
   characterCard: null,
   enemyCard: null,
   inventory: null,
-  swordCardStatus: false,
-  shieldCardStatus: false,
-  bowCardStatus: false,
-  helmetCardStatus: false,
-  pillsCardStatus: false,
   battlePageOpenCount: 0,
   roundTitle: null,
   pageStatus: null
@@ -34,19 +29,6 @@ const reducer = (state = initialState, action) => {
         ...state,
         enemy: {...monster, health: modifiedHealth}
       } 
-    }
-  }
-
-  const weaponApply = (weapon) => {
-    const {attack, defense, magic, health} = state.character;
-    const improvedAttack = attack+weapon.attack;
-    const improvedDefense = defense+weapon.defense;
-    const improvedMagic = magic+weapon.magic;
-    const improvedHealth = health+weapon.health;
-    return {
-      ...state,
-      character: {...state.character, attack: improvedAttack, defense: improvedDefense, magic: improvedMagic, health: improvedHealth},
-
     }
   }
 
@@ -106,7 +88,6 @@ const reducer = (state = initialState, action) => {
         enemyCard: action.payload
       }      
     case 'SET_INVENTORY':
-      console.log('vasya')
       return {
         ...state,
         inventory: action.payload
@@ -121,41 +102,6 @@ const reducer = (state = initialState, action) => {
         ...state,
         character: {...state.character, attack: improvedAttack, defense: improvedDefense, magic: improvedMagic, health: improvedHealth},
   
-      }
-    case 'SET_SWORD':
-      return weaponApply(state.inventory[0]);
-    case 'SET_SHIELD':
-      return weaponApply(state.inventory[1]);
-    case 'SET_BOW':
-      return weaponApply(state.inventory[2]);
-    case 'SET_HELMET':
-      return weaponApply(state.inventory[3]);
-    case 'SET_PILLS':
-      return weaponApply(state.inventory[4]);
-    case 'SET_SWORD_CARD_VISIBILITY':
-      return {
-        ...state,
-        swordCardStatus: !state.swordCardStatus
-      }
-    case 'SET_SHIELD_CARD_VISIBILITY':
-      return {
-        ...state,
-        shieldCardStatus: !state.shieldCardStatus
-      }
-    case 'SET_BOW_CARD_VISIBILITY':
-      return {
-        ...state,
-        bowCardStatus: !state.bowCardStatus
-      }
-    case 'SET_HELMET_CARD_VISIBILITY':
-      return {
-        ...state,
-        helmetCardStatus: !state.helmetCardStatus
-      }
-    case 'SET_PILLS_CARD_VISIBILITY':
-      return {
-        ...state,
-        pillsCardStatus: !state.pillsCardStatus
       }
     case 'SET_ROUND_TITLE':
       return{
