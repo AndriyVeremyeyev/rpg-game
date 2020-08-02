@@ -125,7 +125,7 @@ class Battle extends Component {
         setInventoryButtonStatus();
         randomMonsters.length > 0 ? setPageStatus('chooseMonsters') : setPageStatus('endGame')
       } else {
-        setLegend('You loose')
+        setLegend('You lose')
         setPageStatus('endGame')
       }
     }
@@ -161,6 +161,10 @@ class Battle extends Component {
         setTimeout(() => thirdStep(thirdTextContinue), 3000);
       }
     }
+  }
+
+  openInventory = () => {
+    this.props.setPageStatus('inventory');
   }
 
   render(){
@@ -208,7 +212,7 @@ class Battle extends Component {
               variant='contained' 
               color='primary'
               disabled={inventoryButton}
-              onClick={() => this.props.setPageStatus('inventory')}
+              onClick={this.openInventory}
             >
               Store
             </Button>
