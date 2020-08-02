@@ -45,6 +45,13 @@ export const setInventoryButtonStatus = (status) => {
   }
 }
 
+export const setWeapon = (weapon) => {
+  return {
+    type: 'SET_WEAPON',
+    payload: weapon
+  }
+}
+
 export const setSubtitle = (text) => {
   return {
     type: 'SET_SUBTITLE',
@@ -78,24 +85,6 @@ export const setEnemyCardStyle = (style) => {
     type: 'SET_ENEMY_CARD_STYLE',
     payload: style
   }  
-}
-
-export const setBattleVisible = () => {
-  return {
-    type: 'SET_BATTLE_VISIBLE'
-  }
-}
-
-export const setInventoryVisible = () => {
-  return {
-    type: 'SET_INVENTORY_VISIBLE'
-  }
-}
-
-export const setMonstersMenuVisible = () => {
-  return {
-    type: 'SET_MONSTERS_MENU_VISIBLE'
-  }
 }
 
 export const setInventory = (inventory) => {

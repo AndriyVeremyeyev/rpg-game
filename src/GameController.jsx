@@ -10,7 +10,7 @@ import {databaseInventory} from './database';
 import Inventory from './Inventory';
 
 
-const GameController = ({startGame, setSubtitle, setInventory, pageStatus}) => {
+const GameController = ({startGame, setSubtitle, setInventory, pageStatus, randomMonsters}) => {
 
   if (!startGame) {
     return <StartGame/>
@@ -27,7 +27,9 @@ const GameController = ({startGame, setSubtitle, setInventory, pageStatus}) => {
       }
       case 'inventory':
         setSubtitle('Inventory');
-        setInventory(databaseInventory);
+        if (randomMonsters.length === 2){
+          setInventory(databaseInventory);
+        }
         return <Inventory/>
       case 'endGame':
         setSubtitle('End of Game')
@@ -47,10 +49,11 @@ const GameController = ({startGame, setSubtitle, setInventory, pageStatus}) => {
 }
 
 const mapStateToProps = state => {
-  const {startGame, pageStatus} = state;
+  const {startGame, pageStatus, randomMonsters} = state;
   return {
     startGame,
-    pageStatus
+    pageStatus,
+    randomMonsters
   }
 }
 

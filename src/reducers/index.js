@@ -106,9 +106,21 @@ const reducer = (state = initialState, action) => {
         enemyCard: action.payload
       }      
     case 'SET_INVENTORY':
+      console.log('vasya')
       return {
         ...state,
         inventory: action.payload
+      }
+    case 'SET_WEAPON':
+      const {attack, defense, magic, health} = state.character;
+      const improvedAttack = attack+action.payload.attack;
+      const improvedDefense = defense+action.payload.defense;
+      const improvedMagic = magic+action.payload.magic;
+      const improvedHealth = health+action.payload.health;
+      return {
+        ...state,
+        character: {...state.character, attack: improvedAttack, defense: improvedDefense, magic: improvedMagic, health: improvedHealth},
+  
       }
     case 'SET_SWORD':
       return weaponApply(state.inventory[0]);

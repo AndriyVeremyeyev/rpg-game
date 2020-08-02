@@ -9,7 +9,7 @@ import {
   setEnemy,
   setSubtitle,
   setLegend,
-  setPageStatus
+  setPageStatus,
 } from './actions';
 
 class ChooseMonsters extends Component {
