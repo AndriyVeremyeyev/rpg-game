@@ -16,7 +16,6 @@ class ChooseMonsters extends Component {
 
   componentDidMount = () => {
     const {setRandomMonsters, setSubtitle, setLegend, randomMonsters} = this.props;
-    console.log(randomMonsters);
     if (randomMonsters.length === 0){
       const shuffled = databaseMonsters.sort(() => 0.5 - Math.random()).slice(0, 4);
       setRandomMonsters(shuffled);

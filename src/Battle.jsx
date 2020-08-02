@@ -12,14 +12,15 @@ import {
   setEnemyCardStyle,
   setRoundTitle,
   setPageStatus,
+  increaseBattlePageOpenCount
 } from './actions';
 import './Battle.css';
 
 class Battle extends Component {
 
   allowApplyAttack = () => {
-    const {setLegend, setAttackButtonsStatus, setInventoryButtonStatus, battlePageOpen} = this.props;
-    if (battlePageOpen < 2){
+    const {setLegend, setAttackButtonsStatus, setInventoryButtonStatus, battlePageOpenCount} = this.props;
+    if (battlePageOpenCount < 2){
       setLegend('Buttons became active now')
       setAttackButtonsStatus();
       setInventoryButtonStatus(false);
@@ -31,17 +32,16 @@ class Battle extends Component {
   }
 
   componentDidMount = () => {
-    const {setLegend, battlePageOpen, setRoundTitle, randomMonsters, roundTitle} = this.props;
-    console.log(randomMonsters.length);
+    const {setLegend, battlePageOpenCount, setRoundTitle, randomMonsters, increaseBattlePageOpenCount} = this.props;
+    increaseBattlePageOpenCount();
     if (randomMonsters.length === 2){
       setRoundTitle('Round 1');
-      console.log(roundTitle);
     } else if (randomMonsters.length === 1){
       setRoundTitle('Round 2');
     } else {
       setRoundTitle('Round 3');
     }
-    if (battlePageOpen < 2){
+    if (battlePageOpenCount < 1){
       const firstText = () => {
         setLegend('This is Battle Mode')
       }
@@ -104,7 +104,6 @@ class Battle extends Component {
         setLegend(`Enemy health damage is ${attackValue}`);
         setEnemyCardStyle(null);
       } else {
-        console.log(attackValue);
         setLegend(`Your health damage is ${attackValue}`);
         setCharacterCardStyle(null);
       }
@@ -122,6 +121,8 @@ class Battle extends Component {
     const forthStep = () => {
       if (monster.name === character.name){
         setLegend('You win')
+        setAttackButtonsStatus();
+        setInventoryButtonStatus();
         randomMonsters.length > 0 ? setPageStatus('chooseMonsters') : setPageStatus('endGame')
       } else {
         setLegend('You loose')
@@ -220,7 +221,7 @@ class Battle extends Component {
 
 const mapStateToProps = state => {
 
-  const {character, enemy, attackButtons, inventoryButton, characterCard, enemyCard, battlePageOpen, randomMonsters, roundTitle} = state;
+  const {character, enemy, attackButtons, inventoryButton, characterCard, enemyCard, battlePageOpenCount, randomMonsters, roundTitle} = state;
 
   return {
     character,
@@ -229,7 +230,7 @@ const mapStateToProps = state => {
     inventoryButton,
     characterCard,
     enemyCard,
-    battlePageOpen,
+    battlePageOpenCount,
     randomMonsters,
     roundTitle
   }
@@ -245,7 +246,8 @@ const mapDispatchToProps = dispatch => ({
   setCharacterCardStyle: (style) => dispatch(setCharacterCardStyle(style)),
   setEnemyCardStyle: (style) => dispatch(setEnemyCardStyle(style)),
   setRoundTitle: (text) => dispatch(setRoundTitle(text)),
-  setPageStatus: (page) => dispatch(setPageStatus(page))
+  setPageStatus: (page) => dispatch(setPageStatus(page)),
+  increaseBattlePageOpenCount: () => dispatch(increaseBattlePageOpenCount())
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Battle);;

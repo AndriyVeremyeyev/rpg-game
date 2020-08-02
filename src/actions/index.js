@@ -166,7 +166,6 @@ export const setPillsCardVisibility = () => {
 }
 
 export const setRoundTitle = (text) => {
-  console.log(text);
   return {
     type: 'SET_ROUND_TITLE',
     payload: text
@@ -183,5 +182,11 @@ export const setPageStatus = (page) => {
   return {
     type: 'SET_PAGE_STATUS',
     payload: page
+  }
+}
+
+export const increaseBattlePageOpenCount = () => {
+  return {
+    type: 'INCREASE_BATTLE_PAGE_OPEN_COUNT'
   }
 }

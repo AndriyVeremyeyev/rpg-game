@@ -15,7 +15,7 @@ const initialState = {
   bowCardStatus: false,
   helmetCardStatus: false,
   pillsCardStatus: false,
-  battlePageOpen: 0,
+  battlePageOpenCount: 0,
   roundTitle: null,
   pageStatus: null
 }
@@ -154,7 +154,13 @@ const reducer = (state = initialState, action) => {
       return{
         ...state,
         pageStatus: action.payload
-      }           
+      }
+    case 'INCREASE_BATTLE_PAGE_OPEN_COUNT':
+      return{
+        ...state,
+        battlePageOpenCount: state.battlePageOpenCount + 1
+
+      }         
     default:
       return state;
   }

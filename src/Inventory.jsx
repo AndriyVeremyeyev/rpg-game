@@ -74,7 +74,6 @@ const Inventory = ({
       )
     }
   }
-  console.log(inventory);
   return (
     <Grid container direction='column' justify="center" alignItems='center'>
       <Grid container direction="row" justify="center" spacing={2}>
