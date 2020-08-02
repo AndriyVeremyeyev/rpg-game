@@ -37,8 +37,6 @@ const GameController = ({startGame, setSubtitle, setInventory, pageStatus}) => {
     }
   }
 
-  console.log(pageStatus);
-
   return (
     <React.Fragment>
       <Header/>

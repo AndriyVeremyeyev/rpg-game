@@ -11,8 +11,7 @@ import {
   setCharacterCardStyle,
   setEnemyCardStyle,
   setRoundTitle,
-  setDefeatedEnemy,
-  setPageStatus
+  setPageStatus,
 } from './actions';
 import './Battle.css';
 
@@ -32,12 +31,14 @@ class Battle extends Component {
   }
 
   componentDidMount = () => {
-    const {setLegend, battlePageOpen, defeatedEnemies, setRoundTitle} = this.props;
-    if (defeatedEnemies.length < 1){
+    const {setLegend, battlePageOpen, setRoundTitle, randomMonsters, roundTitle} = this.props;
+    console.log(randomMonsters.length);
+    if (randomMonsters.length === 2){
       setRoundTitle('Round 1');
-    } else if (defeatedEnemies.length < 2){
+      console.log(roundTitle);
+    } else if (randomMonsters.length === 1){
       setRoundTitle('Round 2');
-    } else if (defeatedEnemies.length < 3){
+    } else {
       setRoundTitle('Round 3');
     }
     if (battlePageOpen < 2){
@@ -87,8 +88,8 @@ class Battle extends Component {
       setEnemyCardStyle,
       character,
       enemy,
-      setDefeatedEnemy,
-      setPageStatus
+      setPageStatus,
+      randomMonsters
     } = this.props;
 
     if (n > 2){
@@ -121,9 +122,7 @@ class Battle extends Component {
     const forthStep = () => {
       if (monster.name === character.name){
         setLegend('You win')
-        setDefeatedEnemy(enemy);
-        setPageStatus('chooseMonsters')
-
+        randomMonsters.length > 0 ? setPageStatus('chooseMonsters') : setPageStatus('endGame')
       } else {
         setLegend('You loose')
         setPageStatus('endGame')
@@ -221,7 +220,7 @@ class Battle extends Component {
 
 const mapStateToProps = state => {
 
-  const {character, enemy, attackButtons, inventoryButton, characterCard, enemyCard, battlePageOpen, defeatedEnemies} = state;
+  const {character, enemy, attackButtons, inventoryButton, characterCard, enemyCard, battlePageOpen, randomMonsters, roundTitle} = state;
 
   return {
     character,
@@ -231,7 +230,8 @@ const mapStateToProps = state => {
     characterCard,
     enemyCard,
     battlePageOpen,
-    defeatedEnemies
+    randomMonsters,
+    roundTitle
   }
 }
 
@@ -245,7 +245,6 @@ const mapDispatchToProps = dispatch => ({
   setCharacterCardStyle: (style) => dispatch(setCharacterCardStyle(style)),
   setEnemyCardStyle: (style) => dispatch(setEnemyCardStyle(style)),
   setRoundTitle: (text) => dispatch(setRoundTitle(text)),
-  setDefeatedEnemy: (monster) => dispatch(setDefeatedEnemy(monster)),
   setPageStatus: (page) => dispatch(setPageStatus(page))
 })
 

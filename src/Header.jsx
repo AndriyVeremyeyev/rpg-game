@@ -2,10 +2,10 @@ import React from 'react';
 import {connect} from 'react-redux';
 import { Typography, Grid } from '@material-ui/core';
 
-const Header = ({subTitle, legend, roundTitle, battlePage}) => {
+const Header = ({subTitle, legend, roundTitle, pageStatus}) => {
 
   const roundTitleView = () => {
-    if (battlePage){
+    if (pageStatus === 'battleMode'){
       return (
         <Typography variant='h4'>{roundTitle}</Typography>
       )
@@ -25,13 +25,13 @@ const Header = ({subTitle, legend, roundTitle, battlePage}) => {
 
 const mapStateToProps = state => {
 
-  const {subTitle, legend, roundTitle, battlePage} = state;
+  const {subTitle, legend, roundTitle, pageStatus} = state;
 
   return {
     subTitle,
     legend,
     roundTitle,
-    battlePage
+    pageStatus
   }
 }
 

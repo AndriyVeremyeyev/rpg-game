@@ -15,14 +15,15 @@ import {
 class ChooseMonsters extends Component {
 
   componentDidMount = () => {
-    const {setRandomMonsters, setSubtitle, setLegend, defeatedEnemies} = this.props;
-    if (defeatedEnemies.length < 1){
+    const {setRandomMonsters, setSubtitle, setLegend, randomMonsters} = this.props;
+    console.log(randomMonsters);
+    if (randomMonsters.length === 0){
       const shuffled = databaseMonsters.sort(() => 0.5 - Math.random()).slice(0, 4);
       setRandomMonsters(shuffled);
       setLegend('Choose your character')
-    } else if (defeatedEnemies.length < 2){
+    } else if (randomMonsters.length === 2){
       setLegend('Choose your enemy for 2 round')
-    } else if (defeatedEnemies.length < 3){
+    } else if (randomMonsters.length === 1){
       setLegend('Choose your enemy for 3 round')
     }
     setSubtitle('Monsters Menu')

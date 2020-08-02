@@ -166,16 +166,10 @@ export const setPillsCardVisibility = () => {
 }
 
 export const setRoundTitle = (text) => {
+  console.log(text);
   return {
     type: 'SET_ROUND_TITLE',
-    payload: text 
-  }
-}
-
-export const setDefeatedEnemy = (monster) => {
-  return {
-    type: 'SET_DEFEATED_ENEMY',
-    payload: monster
+    payload: text
   }
 }
 
@@ -189,11 +183,5 @@ export const setPageStatus = (page) => {
   return {
     type: 'SET_PAGE_STATUS',
     payload: page
-  }
-}
-
-export const setDefeatedEnemiesEmpty = () => {
-  return {
-    type: 'SET_DEFEATED_ENEMIES_EMPTY'
   }
 }
