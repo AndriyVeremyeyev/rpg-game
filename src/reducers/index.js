@@ -158,6 +158,12 @@ const reducer = (state = initialState, action) => {
         ...state,
         defeatedEnemies: defeatedEnemiesUpdate
       }
+    case 'SET_DEFEATED_ENEMIES_EMPTY':
+      const emptyArray = [];
+      return{
+        ...state,
+        defeatedEnemies: emptyArray
+      }
     case 'SET_PAGE_STATUS':
       return{
         ...state,

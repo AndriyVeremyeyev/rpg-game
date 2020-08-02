@@ -191,3 +191,9 @@ export const setPageStatus = (page) => {
     payload: page
   }
 }
+
+export const setDefeatedEnemiesEmpty = () => {
+  return {
+    type: 'SET_DEFEATED_ENEMIES_EMPTY'
+  }
+}

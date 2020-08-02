@@ -1,11 +1,13 @@
 import React from 'react';
+import {connect} from 'react-redux';
 import {Grid, Typography, Button} from '@material-ui/core';
+import {setPageStatus, setDefeatedEnemiesEmpty} from './actions';
 
-const EndGame = () => {
-
+const EndGame = ({setPageStatus, setDefeatedEnemiesEmpty}) => {
 
   const playAgain = () => {
-
+    setDefeatedEnemiesEmpty();
+    setPageStatus('chooseMonsters');
   }
 
 
@@ -17,6 +19,7 @@ const EndGame = () => {
           <Button
             variant='contained' 
             color='primary'
+            onClick={playAgain}
           >Yes</Button>
           <Button
             variant='contained' 
@@ -28,6 +31,9 @@ const EndGame = () => {
   )
 }
 
+const mapDispatchToProps = dispatch => ({
+  setPageStatus: (page) => dispatch(setPageStatus(page)),
+  setDefeatedEnemiesEmpty: () => dispatch(setDefeatedEnemiesEmpty()),
+})
 
-
-export default EndGame;
+export default connect(null, mapDispatchToProps)(EndGame);;
